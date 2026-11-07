@@ -176,7 +176,12 @@ section.band{padding-block:clamp(72px, 9vw, 128px)}
 .contact .lead{color:#C9D6EE; max-width:460px; margin:20px 0 32px}
 .num{display:flex; flex-wrap:wrap; align-items:center; gap:14px; margin-bottom:18px}
 .num strong{font-family:var(--display); font-weight:600; font-size:clamp(24px, 3vw, 34px); letter-spacing:-.01em; user-select:all; font-variant-numeric:tabular-nums}
-.socials{color:#B7C4DE; font-size:15px}
+.socials{display:flex; flex-wrap:wrap; gap:10px; margin-top:22px}
+.soc{display:inline-flex; align-items:center; gap:8px; padding:10px 16px 10px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.06); color:#fff; text-decoration:none; font-family:var(--display); font-weight:500; font-size:14px; transition:background .2s, transform .2s}
+.soc:hover{background:var(--signal); transform:translateY(-2px)}
+.soc svg{width:20px; height:20px}
+.num.mail strong{font-size:clamp(17px,2vw,22px); word-break:break-all}
+.foot-soc{margin:0; gap:8px} .foot-soc .soc{padding:9px; border-color:rgba(255,255,255,.14)} .foot-soc .soc span{display:none}
 form{background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:24px; padding:28px; display:grid; gap:16px; backdrop-filter:blur(12px)}
 label{display:grid; gap:8px; font-size:14px; color:#C9D6EE}
 input, select, textarea{font:inherit; color:#fff; background:rgba(3,22,52,.55); border:1px solid rgba(255,255,255,.18); border-radius:12px; padding:13px 14px}
@@ -632,7 +637,8 @@ fieldset.via legend{font-size:14px; color:#C9D6EE; margin-bottom:8px; padding:0}
         <h2>Parlons de votre projet.</h2>
         <p class="lead">Le premier échange est gratuit et sans engagement. Dites-nous ce que vous voulez et laissez votre WhatsApp ou votre e-mail : nous vous recontactons. Vous pouvez aussi nous écrire directement sur WhatsApp.</p>
         <div class="num"><strong id="tel">+225 07 69 81 44 65</strong><button class="pill pill-glass" type="button" id="copy" style="padding:10px 18px;font-size:14px">Copier</button></div>
-        <p class="socials">Génération Hybride sur TikTok · Facebook · Instagram</p>
+        <div class="num mail"><strong id="mail">generationhybrideci@gmail.com</strong><button class="pill pill-glass" type="button" id="copym" style="padding:10px 18px;font-size:14px">Copier</button></div>
+        <div class="socials"><a class="soc" href="https://www.facebook.com/djannigraphi/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.2-1.3 1.4-1.3H17V2.6c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1v1.9H8v3.2h2.6V21H14v-9.3h2.7l.4-3.2z" fill="currentColor"/></svg><span>Facebook</span></a><a class="soc" href="https://www.instagram.com/generationhybride/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg><span>Instagram</span></a><a class="soc" href="https://wa.me/2250769814465" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.4 9.4 0 0 0-8.1 14.2L2.6 21.5l4.9-1.3A9.4 9.4 0 1 0 12 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>WhatsApp</span></a><a class="soc" href="mailto:generationhybrideci@gmail.com" aria-label="E-mail"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>E-mail</span></a></div>
       </div>
       <form class="req" id="f" novalidate data-service="">
         <label for="f-nom">Votre nom<input id="f-nom" name="nom" autocomplete="name" required></label>
@@ -717,6 +723,7 @@ fieldset.via legend{font-size:14px; color:#C9D6EE; margin-bottom:8px; padding:0}
   <div class="wrap">
     <a class="brand" href="#/"><svg aria-hidden="true"><use href="#gh"/></svg>GÉNÉRATION HYBRIDE</a>
     <nav class="foot-links" aria-label="Pages"><a href="#/">Accueil</a><a href="#/services">Services</a><a href="#/methode">Méthode &amp; packs</a><a href="#/projets">Projets</a><a href="#/apropos">À propos</a><a href="#/contact">Contact</a></nav>
+    <div class="socials foot-soc"><a class="soc" href="https://www.facebook.com/djannigraphi/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.2-1.3 1.4-1.3H17V2.6c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1v1.9H8v3.2h2.6V21H14v-9.3h2.7l.4-3.2z" fill="currentColor"/></svg><span>Facebook</span></a><a class="soc" href="https://www.instagram.com/generationhybride/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg><span>Instagram</span></a><a class="soc" href="https://wa.me/2250769814465" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.4 9.4 0 0 0-8.1 14.2L2.6 21.5l4.9-1.3A9.4 9.4 0 1 0 12 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>WhatsApp</span></a><a class="soc" href="mailto:generationhybrideci@gmail.com" aria-label="E-mail"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>E-mail</span></a></div>
     <span>© 2026 Génération Hybride · Abidjan</span>
   </div>
 </footer>
@@ -770,6 +777,13 @@ fieldset.via legend{font-size:14px; color:#C9D6EE; margin-bottom:8px; padding:0}
     const done = () => { copy.textContent = 'Copié'; setTimeout(() => copy.textContent = 'Copier', 1800); };
     try { navigator.clipboard.writeText(t).then(done, () => sel()); } catch (e) { sel(); }
     function sel(){ const r = document.createRange(); r.selectNodeContents(document.getElementById('tel')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  });
+
+  const copym = document.getElementById('copym');
+  copym.addEventListener('click', () => {
+    const done = () => { copym.textContent = 'Copié'; setTimeout(() => copym.textContent = 'Copier', 1800); };
+    const sel = () => { const r = document.createRange(); r.selectNodeContents(document.getElementById('mail')); const g = getSelection(); g.removeAllRanges(); g.addRange(r); };
+    try { navigator.clipboard.writeText('generationhybrideci@gmail.com').then(done, sel); } catch (e) { sel(); }
   });
 
   /* ---------- demandes : service choisi, besoin, WhatsApp ou e-mail ---------- */
