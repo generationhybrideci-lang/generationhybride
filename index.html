@@ -1,0 +1,812 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Génération Hybride, agence Technologie · Informatique · Communication à Abidjan.">
+<title>Génération Hybride</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout : en-tête plein écran sombre (scène 3D du cerveau hybride), puis bandes alternées sur fond clair, colonne max 1240 px */
+:root{
+  --nuit:#06255C; --abysse:#031634; --signal:#3A78F2; --brume:#DDE4F0; --gris:#7C879B;
+  --bg:#F5F6F8; --surface:#FFFFFF; --fg:#0A1630; --muted:#56627A; --line:#DDE4F0; --soft:#EAEFF7;
+  --hero-fg:#FFFFFF; --hero-muted:#B7C4DE; --glass:rgba(255,255,255,.10); --glass-line:rgba(255,255,255,.22);
+  --display:'Poppins', 'Segoe UI', system-ui, sans-serif; --body:'Inter', 'Segoe UI', system-ui, sans-serif;
+  --wrap:1240px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#020B1E; --surface:#061A3D; --fg:#EAF0FA; --muted:#9DAACA; --line:#14305F; --soft:#0A2250; color-scheme:dark } }
+:root[data-theme="dark"]{ --bg:#020B1E; --surface:#061A3D; --fg:#EAF0FA; --muted:#9DAACA; --line:#14305F; --soft:#0A2250; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--fg); font-family:var(--body); font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased}
+body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:60; background:var(--abysse)}
+a{color:inherit}
+.wrap{max-width:var(--wrap); margin:0 auto; padding-left:max(16px, env(safe-area-inset-left,0px)); padding-right:max(16px, env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0}
+.eyebrow{font-family:var(--display); font-weight:500; font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:var(--signal)}
+:focus-visible{outline:3px solid var(--signal); outline-offset:3px; border-radius:8px}
+.pill{display:inline-flex; align-items:center; gap:10px; border-radius:999px; padding:15px 28px; font-family:var(--display); font-weight:600; font-size:16px; text-decoration:none; border:0; cursor:pointer; transition:transform .2s, background .2s}
+.pill:hover{transform:translateY(-2px)}
+.pill-blue{background:var(--signal); color:#fff}
+.pill-blue:hover{background:#2C66DE}
+.pill-glass{background:var(--glass); color:var(--hero-fg); border:1px solid var(--glass-line); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px)}
+.pill-line{background:transparent; color:var(--fg); border:1.5px solid var(--line)}
+
+/* ---------- navigation ---------- */
+.nav{position:absolute; top:0; left:0; right:0; z-index:20; padding-top:env(safe-area-inset-top,0px)}
+.nav .wrap{display:flex; align-items:center; gap:28px; height:84px}
+.brand{display:flex; align-items:center; gap:12px; text-decoration:none; color:#fff; font-family:var(--display); font-weight:600; font-size:17px; letter-spacing:.06em}
+.brand svg{width:34px; height:35px; fill:#fff}
+.nav-links{display:flex; gap:28px; margin-left:36px}
+.nav-links a{color:#fff; text-decoration:none; font-family:var(--display); font-weight:500; font-size:15px; opacity:.9}
+.nav-links a:hover{opacity:1}
+.nav .spacer{flex:1}
+.nav .pill{padding:11px 20px; font-size:14px}
+.menu{display:none; width:44px; height:44px; border-radius:50%; border:1px solid var(--glass-line); background:var(--glass); color:#fff; cursor:pointer; place-items:center; backdrop-filter:blur(10px)}
+.menu svg{width:18px; height:18px; stroke:currentColor; stroke-width:2; fill:none; stroke-linecap:round}
+@media (max-width: 860px){
+  .nav-links{display:none}
+  .menu{display:grid}
+  .nav .pill{display:none}
+  .nav.open .nav-links{display:flex; flex-direction:column; gap:0; position:absolute; top:calc(76px + env(safe-area-inset-top,0px)); left:max(16px, env(safe-area-inset-left,0px)); right:max(16px, env(safe-area-inset-right,0px)); margin:0; padding:8px; border-radius:20px; background:rgba(3,22,52,.96); border:1px solid var(--glass-line); backdrop-filter:blur(16px)}
+  .nav.open .nav-links a{padding:14px 16px; font-size:17px; border-radius:12px}
+  .nav.open .nav-links a.on{box-shadow:none; background:rgba(58,120,242,.22)}
+}
+@media (max-width: 640px){ .hero-inner{padding-top:calc(104px + env(safe-area-inset-top,0px))} .hero .h1b{margin-bottom:22px} .brand{font-size:14px} }
+
+/* ---------- héros ---------- */
+.hero{position:relative; min-height:clamp(600px, 88vh, 940px); overflow:hidden; color:var(--hero-fg);
+  background:radial-gradient(90% 80% at 72% 40%, #0B3A8E 0%, var(--nuit) 42%, var(--abysse) 100%)}
+.hero canvas{position:absolute; inset:0; width:100%; height:100%; display:block}
+.hero .fallback{position:absolute; right:6%; top:18%; width:min(42vw,520px); opacity:.18; fill:#fff}
+.hero .grain{position:absolute; inset:0; pointer-events:none; background:linear-gradient(180deg, rgba(3,22,52,.0) 55%, rgba(3,22,52,.75) 100%)}
+.hero-inner{position:relative; z-index:5; min-height:inherit; display:grid; grid-template-rows:auto 1fr auto; padding-top:calc(118px + env(safe-area-inset-top,0px)); padding-bottom:44px}
+.hero h1{font-weight:600; font-size:clamp(52px, 9vw, 148px); line-height:.9; letter-spacing:-.05em}
+.hero .h1b{justify-self:end; text-align:right}
+.hero-bottom{display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:28px}
+.hero-copy{max-width:520px; display:flex; flex-direction:column; gap:26px}
+.hero-copy p{margin:0; font-family:var(--display); font-weight:500; font-size:clamp(18px, 1.9vw, 24px); line-height:1.3}
+.hero-copy .actions{display:flex; flex-wrap:wrap; gap:12px}
+.hero .h1b{margin-top:auto}
+.hero-meta{display:flex; align-items:center; gap:14px; font-size:13px; color:var(--hero-muted); letter-spacing:.06em}
+.ctrl{width:44px; height:44px; border-radius:50%; border:1px solid var(--glass-line); background:var(--glass); color:#fff; display:grid; place-items:center; cursor:pointer; backdrop-filter:blur(10px)}
+.ctrl svg{width:16px; height:16px; fill:currentColor}
+.hero-mid{display:flex; align-items:flex-end; justify-content:flex-end}
+
+/* ---------- bandeau ---------- */
+.ticker{background:var(--abysse); color:#C9D6EE; overflow:hidden; border-top:1px solid rgba(255,255,255,.08)}
+.ticker .track{display:flex; gap:56px; white-space:nowrap; padding-block:18px; font-family:var(--display); font-weight:500; font-size:15px; letter-spacing:.08em; animation:slide 38s linear infinite; width:max-content}
+.ticker .track span::after{content:"•"; margin-left:56px; color:var(--signal)}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* ---------- sections ---------- */
+section.band{padding-block:clamp(72px, 9vw, 128px)}
+.head{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:48px}
+.head h2{font-weight:600; font-size:clamp(34px, 4.6vw, 64px); line-height:1; letter-spacing:-.035em; max-width:760px}
+.head p{max-width:420px; color:var(--muted); margin:0}
+
+/* pôles */
+.poles{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:24px; perspective:1400px}
+@media (max-width:860px){ .poles{grid-template-columns:1fr} }
+.pole{position:relative; border-radius:28px; padding:40px; min-height:420px; overflow:hidden; display:flex; flex-direction:column; justify-content:space-between; transform-style:preserve-3d; transition:transform .25s ease-out}
+.pole.tech{background:var(--nuit); color:#fff}
+.pole.com{background:var(--surface); border:1px solid var(--line)}
+.pole h3{font-weight:600; font-size:clamp(28px, 3vw, 40px); letter-spacing:-.025em; line-height:1.05; transform:translateZ(40px)}
+.pole ul{list-style:none; padding:0; margin:0; display:grid; gap:10px; transform:translateZ(28px)}
+.pole li{display:flex; gap:12px; align-items:center; font-size:16px}
+.pole li::before{content:""; width:8px; height:8px; border-radius:50%; background:var(--signal); flex:none}
+.pole .tag{font-family:var(--display); font-size:13px; letter-spacing:.18em; text-transform:uppercase; opacity:.75; transform:translateZ(20px)}
+.pole .orb{position:absolute; right:-80px; top:-80px; width:300px; height:300px; border-radius:50%; background:radial-gradient(circle at 35% 35%, rgba(58,120,242,.65), rgba(58,120,242,0) 70%); transform:translateZ(-30px)}
+
+/* services */
+.services{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:16px; perspective:1200px}
+@media (max-width:1040px){ .services{grid-template-columns:repeat(2, minmax(0,1fr))} }
+@media (max-width:520px){ .services{grid-template-columns:1fr} }
+.svc{background:var(--surface); border:1px solid var(--line); border-radius:22px; padding:28px 24px; display:flex; flex-direction:column; gap:16px; min-height:230px; transform-style:preserve-3d; transition:transform .25s ease-out, box-shadow .25s}
+.svc:hover{box-shadow:0 30px 60px -30px rgba(6,37,92,.45)}
+.svc .ic{width:52px; height:52px; border-radius:14px; background:var(--soft); display:grid; place-items:center; color:var(--signal); transform:translateZ(30px)}
+.svc .ic svg{width:26px; height:26px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round}
+.svc h3{font-weight:600; font-size:20px; letter-spacing:-.01em; transform:translateZ(22px)}
+.svc p{margin:0; color:var(--muted); font-size:15px}
+
+/* outils en action (scène CSS 3D) */
+.action{background:var(--abysse); color:#fff; overflow:hidden}
+.action .head p{color:#B7C4DE}
+.stage{margin-top:110px; perspective:1600px; height:clamp(420px, 52vw, 620px); display:grid; place-items:center}
+.scene{position:relative; width:min(980px, 100%); height:100%; transform-style:preserve-3d; transform:rotateX(var(--rx,10deg)) rotateY(var(--ry,-14deg)); transition:transform .4s ease-out}
+.layer{position:absolute; transform-style:preserve-3d}
+.browser{left:4%; top:10%; width:62%; height:72%; border-radius:18px; background:#0B1D45; border:1px solid rgba(255,255,255,.12); box-shadow:0 60px 90px -40px rgba(0,0,0,.7); transform:translateZ(0); overflow:hidden}
+.browser .bar{height:38px; display:flex; align-items:center; gap:8px; padding:0 16px; background:rgba(255,255,255,.05)}
+.browser .bar i{width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.25)}
+.browser .bar b{margin-left:12px; height:20px; flex:1; max-width:280px; border-radius:10px; background:rgba(255,255,255,.08)}
+.browser .hero-mock{margin:18px; height:42%; border-radius:12px; background:linear-gradient(120deg, var(--signal), var(--nuit)); display:flex; align-items:flex-end; padding:18px; font-family:var(--display); font-weight:600; font-size:clamp(16px, 2.2vw, 28px); letter-spacing:-.02em}
+.browser .row{display:flex; gap:12px; margin:0 18px}
+.browser .row div{flex:1; height:70px; border-radius:10px; background:rgba(255,255,255,.07)}
+.phone{right:6%; top:2%; width:24%; min-width:150px; height:88%; border-radius:34px; background:#020B1E; border:6px solid #1B2C52; padding:16px 10px; transform:translateZ(140px); box-shadow:0 60px 90px -30px rgba(0,0,0,.8); display:flex; flex-direction:column; gap:10px; animation:float 6s ease-in-out infinite}
+.phone .top{font-family:var(--display); font-weight:600; font-size:13px; padding:4px 6px 10px; border-bottom:1px solid rgba(255,255,255,.1)}
+.bub{max-width:88%; padding:9px 12px; border-radius:14px; font-size:12.5px; line-height:1.35}
+.bub.in{background:#14284F; align-self:flex-start; border-bottom-left-radius:4px}
+.bub.out{background:var(--signal); align-self:flex-end; border-bottom-right-radius:4px}
+.dash{left:-2%; bottom:2%; width:36%; min-width:200px; border-radius:18px; padding:18px; background:rgba(255,255,255,.95); color:var(--nuit); transform:translateZ(220px); box-shadow:0 40px 70px -30px rgba(0,0,0,.6); animation:float 7s ease-in-out -2s infinite}
+.dash .k{font-size:12px; color:var(--gris)}
+.dash .v{font-family:var(--display); font-weight:600; font-size:26px; letter-spacing:-.02em}
+.bars{display:flex; align-items:flex-end; gap:8px; height:70px; margin-top:10px}
+.bars i{flex:1; border-radius:6px 6px 0 0; background:var(--signal); opacity:.9}
+.chip3d{right:-1%; bottom:8%; padding:12px 18px; border-radius:999px; background:var(--signal); font-family:var(--display); font-weight:600; font-size:14px; transform:translateZ(300px); animation:float 5s ease-in-out -1s infinite; white-space:nowrap}
+@keyframes float{0%,100%{translate:0 0} 50%{translate:0 -14px}}
+@media (max-width:640px){ .phone{min-width:0; width:34%} .dash{min-width:0; width:52%} .chip3d{display:none} }
+
+/* méthode */
+.steps{display:grid; grid-template-columns:repeat(5, minmax(0,1fr)); gap:16px; counter-reset:s}
+@media (max-width:960px){ .steps{grid-template-columns:repeat(2, minmax(0,1fr))} }
+@media (max-width:520px){ .steps{grid-template-columns:1fr} }
+.step{border-top:2px solid var(--fg); padding-top:20px; display:flex; flex-direction:column; gap:10px}
+.step .n{font-family:var(--display); font-weight:600; font-size:44px; letter-spacing:-.04em; color:var(--signal); line-height:1; font-variant-numeric:tabular-nums}
+.step h3{font-weight:600; font-size:20px}
+.step p{margin:0; color:var(--muted); font-size:15px}
+
+/* packs */
+.packs{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px}
+@media (max-width:900px){ .packs{grid-template-columns:1fr} }
+.pack{border-radius:24px; padding:32px; background:var(--surface); border:1px solid var(--line); display:flex; flex-direction:column; gap:18px}
+.pack.feat{background:var(--nuit); color:#fff; border-color:var(--nuit)}
+.pack .who{font-size:13px; letter-spacing:.14em; text-transform:uppercase; font-family:var(--display); opacity:.75}
+.pack h3{font-weight:600; font-size:28px; letter-spacing:-.02em}
+.pack ul{margin:0; padding-left:18px; display:grid; gap:6px; font-size:15px}
+.pack .price{margin-top:auto; font-family:var(--display); font-weight:600; font-size:18px}
+.pack.feat .price{color:#8FB2FF}
+
+/* engagements */
+.why{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:16px}
+@media (max-width:960px){ .why{grid-template-columns:repeat(2, minmax(0,1fr))} }
+@media (max-width:520px){ .why{grid-template-columns:1fr} }
+.why div{background:var(--soft); border-radius:20px; padding:26px}
+.why h3{font-weight:600; font-size:19px; margin-bottom:8px}
+.why p{margin:0; color:var(--muted); font-size:15px}
+
+/* contact */
+.contact{background:linear-gradient(140deg, var(--nuit), var(--abysse)); color:#fff}
+.contact-grid{display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:48px; align-items:start}
+@media (max-width:900px){ .contact-grid{grid-template-columns:1fr} }
+.contact h2{font-weight:600; font-size:clamp(38px, 5.4vw, 76px); line-height:.98; letter-spacing:-.04em}
+.contact .lead{color:#C9D6EE; max-width:460px; margin:20px 0 32px}
+.num{display:flex; flex-wrap:wrap; align-items:center; gap:14px; margin-bottom:18px}
+.num strong{font-family:var(--display); font-weight:600; font-size:clamp(24px, 3vw, 34px); letter-spacing:-.01em; user-select:all; font-variant-numeric:tabular-nums}
+.socials{color:#B7C4DE; font-size:15px}
+form{background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:24px; padding:28px; display:grid; gap:16px; backdrop-filter:blur(12px)}
+label{display:grid; gap:8px; font-size:14px; color:#C9D6EE}
+input, select, textarea{font:inherit; color:#fff; background:rgba(3,22,52,.55); border:1px solid rgba(255,255,255,.18); border-radius:12px; padding:13px 14px}
+textarea{min-height:110px; resize:vertical}
+select option{color:#0A1630}
+.wa-out{display:none; background:rgba(58,120,242,.18); border:1px solid rgba(58,120,242,.5); border-radius:14px; padding:14px; font-size:14px}
+.wa-out.on{display:block}
+.wa-out a{color:#fff; font-weight:600}
+
+footer{background:var(--abysse); color:#8FA0C2; font-size:14px}
+footer .wrap{display:flex; flex-wrap:wrap; gap:16px 32px; justify-content:space-between; align-items:center; padding-block:34px}
+footer .brand{font-size:15px}
+
+
+
+/* pages */
+.view[hidden]{display:none}
+.nav-links a.on{opacity:1; box-shadow:inset 0 -2px 0 var(--signal); padding-bottom:4px}
+.page-head{background:radial-gradient(80% 120% at 85% 0%, #0B3A8E 0%, var(--nuit) 45%, var(--abysse) 100%); color:#fff; padding-top:calc(150px + env(safe-area-inset-top,0px)); padding-bottom:clamp(56px,7vw,96px)}
+.page-head h1{font-weight:600; font-size:clamp(40px, 6.4vw, 96px); line-height:.95; letter-spacing:-.045em; max-width:980px; margin-top:16px}
+.page-head p{color:#B7C4DE; font-size:clamp(17px,1.6vw,20px); max-width:560px; margin:24px 0 0}
+.page-head .eyebrow{color:#8FB2FF}
+section.page-contact{padding-top:calc(150px + env(safe-area-inset-top,0px)); min-height:100vh}
+.cta-band{padding-top:clamp(72px, 9vw, 128px)}
+.cta-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
+@media (max-width:900px){ .cta-grid{grid-template-columns:1fr} }
+.cta-card{position:relative; display:flex; flex-direction:column; gap:12px; padding:32px; border-radius:24px; background:var(--surface); border:1px solid var(--line); text-decoration:none; min-height:220px; transition:transform .2s, box-shadow .2s}
+.cta-card:hover{transform:translateY(-4px); box-shadow:0 30px 60px -30px rgba(6,37,92,.45)}
+.cta-card h3{font-weight:600; font-size:28px; letter-spacing:-.02em}
+.cta-card p{margin:0; color:var(--muted)}
+.cta-card .arrow{margin-top:auto; font-family:var(--display); font-size:28px; color:var(--signal)}
+.cta-card.dark{background:var(--nuit); color:#fff; border-color:var(--nuit)}
+.cta-card.dark p{color:#B7C4DE} .cta-card.dark .arrow{color:#8FB2FF}
+.next{display:flex; flex-wrap:wrap; align-items:center; gap:14px; padding:32px; border-radius:24px; background:var(--soft)}
+.next p{margin:0 auto 0 0; font-family:var(--display); font-weight:600; font-size:clamp(20px,2.2vw,28px); letter-spacing:-.02em}
+.foot-links{display:flex; flex-wrap:wrap; gap:20px}
+.foot-links a{text-decoration:none} .foot-links a:hover{color:#fff}
+.view{animation:fadein .5s ease}
+@keyframes fadein{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+@media (prefers-reduced-motion: reduce){ .view{animation:none} }
+
+
+/* demande de service */
+.svc[data-svc]{cursor:pointer; position:relative}
+.svc .go{margin-top:auto; font-family:var(--display); font-weight:600; font-size:14px; color:var(--signal); display:flex; align-items:center; gap:6px; transform:translateZ(18px)}
+.svc:hover .go span{transform:translateX(4px)} .svc .go span{transition:transform .2s}
+.pill-wa{background:#fff; color:var(--nuit)}
+.req-actions{display:flex; flex-wrap:wrap; gap:10px}
+fieldset.via{border:0; padding:0; margin:0; display:flex; flex-wrap:wrap; gap:8px; align-items:center}
+fieldset.via legend{font-size:14px; color:#C9D6EE; margin-bottom:8px; padding:0}
+.chip{display:inline-flex !important; align-items:center; gap:8px; padding:10px 16px; border-radius:999px; border:1px solid rgba(255,255,255,.22); cursor:pointer; color:#fff !important; font-size:15px}
+.chip:has(input:checked){background:var(--signal); border-color:var(--signal)}
+.chip input{accent-color:#fff; margin:0}
+.req .err{border-color:#FF8A8A}
+.sheet{width:min(560px, calc(100vw - 32px)); max-height:calc(100dvh - 32px); overflow:auto; border:1px solid rgba(255,255,255,.14); border-radius:28px; padding:32px; background:linear-gradient(160deg, var(--nuit), var(--abysse)); color:#fff}
+.sheet::backdrop{background:rgba(2,11,30,.7); backdrop-filter:blur(6px)}
+.sheet h2{font-weight:600; font-size:clamp(28px,4vw,38px); letter-spacing:-.03em; margin:8px 0 6px; padding-right:40px}
+.sheet .eyebrow{color:#8FB2FF}
+.sheet-sub{color:#B7C4DE; margin:0 0 20px}
+.sheet form{padding:0; background:none; border:0; backdrop-filter:none}
+.sheet-x{position:absolute; top:18px; right:18px; width:40px; height:40px; border-radius:50%; border:1px solid rgba(255,255,255,.22); background:rgba(255,255,255,.08); color:#fff; font-size:22px; line-height:1; cursor:pointer}
+.sheet[open]{animation:pop .35s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{from{opacity:0; transform:translateY(24px) scale(.97)} to{opacity:1; transform:none}}
+.wa-float{position:fixed; z-index:50; right:max(16px, env(safe-area-inset-right,0px)); bottom:max(16px, env(safe-area-inset-bottom,0px)); display:flex; align-items:center; gap:10px; padding:12px 18px 12px 14px; border-radius:999px; background:var(--signal); color:#fff; text-decoration:none; font-family:var(--display); font-weight:600; font-size:15px; box-shadow:0 18px 40px -12px rgba(6,37,92,.7)}
+.wa-float svg{width:24px; height:24px}
+.wa-float:hover{background:#2C66DE}
+@media (max-width:640px){ .wa-float span{display:none} .wa-float{padding:14px} }
+.wa-out .done{font-family:var(--display); font-weight:600; font-size:17px; margin:0 0 6px}
+
+
+/* formes géométriques animées du contact */
+.contact, .action, .page-head{position:relative; overflow:hidden; isolation:isolate}
+.hero .geo{z-index:0; opacity:.9}
+.contact .geo, .action .geo, .page-head .geo{position:absolute; inset:0; width:100%; height:100%; z-index:-1; display:block}
+.contact::after{content:""; position:absolute; inset:0; z-index:-1; pointer-events:none; background:radial-gradient(60% 50% at 20% 85%, rgba(58,120,242,.22), transparent 70%), radial-gradient(50% 45% at 90% 10%, rgba(58,120,242,.18), transparent 70%)}
+
+@media (prefers-reduced-motion: reduce){ .ticker .track, .phone, .dash, .chip3d{animation:none} .pill, .pole, .svc{transition:none} }
+</style>
+</head>
+<body style="margin:0">
+
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="gh" viewBox="10 10 683 711"><path id="gh-path" fill-rule="evenodd" d="M427.17,720.30C425.88,720.15 422.73,719.78 420.17,719.48C414.14,718.78 411.95,718.31 405.63,716.31C399.46,714.36 391.13,710.30 386.50,706.99C382.04,703.81 374.32,695.95 371.44,691.67C367.26,685.45 363.82,677.56 362.26,670.62C361.59,667.59 361.56,666.37 361.32,628.83C361.19,607.57 361.06,514.64 361.04,422.33L361.00,254.50L361.96,252.50C362.53,251.32 364.04,249.28 365.67,247.50C367.18,245.85 382.55,230.32 399.83,213.00C417.10,195.67 432.13,180.36 433.22,178.97C436.01,175.43 436.45,174.63 437.77,170.67L438.94,167.17L439.26,141.58C439.55,117.92 439.62,115.94 440.16,115.35C440.48,114.99 442.07,113.92 443.70,112.96C451.67,108.28 457.00,100.80 458.49,92.21C459.59,85.83 458.66,79.94 455.58,73.83C453.66,70.02 449.29,65.22 445.43,62.69C441.94,60.40 438.80,59.16 434.69,58.48C428.31,57.42 422.12,58.29 416.64,60.99C413.36,62.61 412.29,63.38 409.21,66.32C404.04,71.25 401.92,75.15 400.34,82.67C399.50,86.68 399.50,88.78 400.35,92.33C402.61,101.81 407.35,108.49 415.05,113.01C417.43,114.41 418.20,115.05 418.63,115.98C419.11,117.04 419.16,119.59 419.08,140.45C418.99,167.09 419.25,164.85 415.80,168.70C413.67,171.08 380.53,204.25 369.27,215.26C365.48,218.97 362.16,222.00 361.89,222.00C361.50,222.00 361.35,221.27 361.17,218.58C361.05,216.70 361.02,179.39 361.09,135.67C361.22,65.20 361.29,55.83 361.76,53.17C362.41,49.48 362.59,48.87 364.54,44.03C368.55,34.12 375.62,25.73 385.23,19.54C386.54,18.69 387.70,18.00 387.79,18.00C387.89,18.00 388.70,17.57 389.58,17.05C391.50,15.92 398.87,12.93 401.00,12.41C411.26,9.93 411.83,9.85 420.17,9.87C427.28,9.88 428.26,9.96 433.83,10.95C441.18,12.26 443.02,12.69 448.33,14.41C455.72,16.79 460.76,19.08 467.83,23.28C482.86,32.21 495.35,45.51 502.50,60.17C506.28,67.93 507.76,71.92 510.03,80.42C510.53,82.31 511.30,82.62 516.87,83.16C529.89,84.42 540.54,87.35 552.33,92.91C563.26,98.07 572.10,104.19 580.62,112.50C588.91,120.57 595.54,129.54 600.44,139.28C602.18,142.74 605.46,150.83 605.95,152.86C606.12,153.58 606.64,155.44 607.10,157.00C608.09,160.34 608.80,164.16 609.34,169.00C609.80,173.09 609.62,187.03 609.03,192.26C608.78,194.52 608.76,195.89 608.98,196.29C609.18,196.66 610.98,197.53 613.57,198.49C627.71,203.78 638.81,211.26 649.42,222.67C658.28,232.18 665.10,244.18 668.67,256.50C671.12,264.97 671.67,269.12 671.66,279.22C671.66,286.30 671.11,292.70 670.14,296.90C669.49,299.75 667.05,307.95 666.62,308.75C666.05,309.82 664.34,314.82 664.33,315.42C664.33,315.74 666.30,318.14 668.71,320.75C674.18,326.68 676.35,329.39 679.83,334.67C684.39,341.57 687.92,349.16 689.99,356.50C693.05,367.33 693.15,368.05 693.13,379.50C693.12,387.86 693.02,389.64 692.43,392.67C689.97,405.25 685.65,416.12 679.44,425.40C676.00,430.54 674.56,432.28 667.69,439.61C662.98,444.64 662.73,445.02 663.22,446.25C663.43,446.75 664.50,449.37 665.61,452.07C669.89,462.48 671.42,473.46 670.33,486.00C669.76,492.48 666.48,502.31 662.60,509.13C655.23,522.09 641.05,535.21 627.33,541.75C624.67,543.02 622.29,544.16 622.03,544.29C621.20,544.72 621.10,545.77 621.60,549.17C621.94,551.48 622.10,555.70 622.13,563.00C622.17,575.09 621.88,577.29 619.24,585.33C615.08,597.98 608.28,609.05 598.84,618.53C593.21,624.19 589.22,627.51 583.67,631.15C576.31,635.98 571.81,638.13 562.34,641.31L555.84,643.50L554.57,645.83C553.86,647.12 552.97,648.91 552.57,649.82C551.31,652.74 547.33,659.61 544.36,664.00C537.85,673.62 526.26,685.48 515.33,693.70C505.66,700.98 490.49,708.97 478.67,713.01C476.93,713.60 475.26,714.21 474.97,714.36C474.23,714.74 461.92,717.88 459.50,718.30C449.53,720.06 433.48,721.06 427.17,720.30Z M244.17,719.13C231.68,717.93 219.01,714.28 207.17,708.48C200.36,705.15 196.29,702.69 188.64,697.25C185.92,695.32 180.58,690.64 177.17,687.20C163.05,672.96 153.02,654.80 149.58,637.30C148.90,633.83 148.83,632.54 148.83,622.50C148.84,610.11 148.97,609.06 151.70,600.67C155.10,590.17 159.70,582.47 169.53,570.83C176.08,563.07 178.97,558.79 181.36,553.32C184.52,546.08 185.28,539.22 183.62,532.83C182.90,530.04 181.34,529.04 180.64,530.92C179.90,532.88 175.51,541.29 174.06,543.50C172.07,546.53 165.42,553.18 159.33,558.22C147.27,568.20 140.74,576.73 135.80,588.97C132.61,596.86 131.16,603.09 130.65,611.17C130.44,614.47 130.17,618.44 130.05,620.00L129.83,622.83L123.83,622.81C118.44,622.78 117.48,622.69 114.33,621.87C103.16,618.98 92.12,612.53 83.49,603.86C75.89,596.23 70.44,586.93 67.26,576.17C65.21,569.25 64.88,566.76 64.87,558.17C64.87,549.63 65.28,546.27 67.05,540.67C68.56,535.88 68.99,534.76 70.60,531.50C74.29,524.03 77.17,519.89 83.69,512.67C93.04,502.32 95.85,498.35 97.65,492.96C98.46,490.55 98.45,489.42 97.62,488.89C97.06,488.54 93.82,490.01 89.67,492.50C80.45,498.01 75.20,501.19 69.64,504.60C66.05,506.80 62.52,508.77 61.81,508.97C58.52,509.88 53.33,509.19 48.11,507.15C36.67,502.68 26.81,493.53 20.27,481.33C16.05,473.46 12.85,462.75 11.95,453.50C11.46,448.47 11.79,433.81 12.50,429.50C13.03,426.23 15.14,417.80 16.09,415.17C16.36,414.43 16.99,412.63 17.49,411.17C20.31,403.03 25.96,392.60 32.99,382.54C35.34,379.18 40.42,373.25 46.33,366.95C58.30,354.22 64.19,346.18 71.33,332.83C83.25,310.56 98.81,297.85 121.50,291.85C124.88,290.96 130.49,290.34 138.29,289.99C142.39,289.81 145.88,289.58 146.04,289.48C146.47,289.21 146.40,288.13 145.92,287.75C144.03,286.25 135.07,282.63 130.83,281.66C128.43,281.11 120.64,280.35 117.32,280.34C112.35,280.33 105.58,281.34 100.50,282.84C98.85,283.33 97.05,283.85 96.50,284.00C95.20,284.33 94.83,284.48 90.67,286.26C77.37,291.97 66.08,301.50 57.42,314.33C55.00,317.91 52.61,322.20 47.92,331.33C44.19,338.60 42.26,341.91 39.09,346.44C36.28,350.45 29.66,358.48 25.43,362.99C23.44,365.12 23.01,365.43 22.58,365.07C21.94,364.53 18.25,358.23 17.67,356.67C17.43,356.02 16.97,355.05 16.65,354.50C15.99,353.35 13.29,345.47 12.53,342.48C11.02,336.55 10.27,330.82 10.10,323.83C9.79,311.61 11.05,302.77 14.81,290.57C21.99,267.31 37.84,245.93 57.40,233.11C64.22,228.65 75.30,223.50 82.42,221.49C84.02,221.04 86.65,220.30 88.25,219.85C91.68,218.90 100.39,217.42 105.14,216.99C116.82,215.94 131.62,217.29 142.50,220.40C145.07,221.13 147.62,221.85 148.17,221.99C151.72,222.89 161.88,227.43 167.00,230.40C187.38,242.19 200.29,258.65 206.02,280.17C206.75,282.92 207.74,286.74 208.21,288.67C212.01,304.15 219.17,317.37 228.72,326.51C239.28,336.63 248.63,341.39 268.67,346.84C284.92,351.26 296.98,358.43 308.83,370.72C317.16,379.36 323.20,389.00 328.31,401.81C329.97,405.98 332.65,414.47 333.32,417.67C335.79,429.47 336.54,435.50 337.01,447.00C337.41,456.58 337.38,479.73 336.97,480.38C336.55,481.05 335.94,480.31 334.31,477.17C331.18,471.10 328.19,466.03 325.18,461.67C318.95,452.64 316.79,450.09 307.84,441.17C299.17,432.51 293.43,427.96 283.74,422.04C269.07,413.08 254.74,407.73 239.33,405.45C233.40,404.57 216.21,404.57 210.83,405.45C205.44,406.32 204.29,406.61 199.33,408.25C192.24,410.60 188.00,412.94 188.00,414.50C188.00,414.94 188.15,415.38 188.33,415.50C188.51,415.61 191.62,415.84 195.24,416.01C219.36,417.16 238.86,421.85 258.00,431.11C264.93,434.46 275.89,441.20 280.73,445.09C288.70,451.49 294.66,457.09 299.97,463.17C308.23,472.63 314.05,481.44 319.97,493.50C326.92,507.65 331.80,523.47 334.46,540.50C336.92,556.22 336.83,553.77 336.83,608.67C336.82,663.01 337.01,658.68 334.34,667.52C332.16,674.74 328.63,681.68 324.00,687.84C315.87,698.65 302.85,708.13 288.96,713.37C284.21,715.16 283.91,715.26 279.14,716.51C270.17,718.86 268.67,719.04 256.50,719.16C250.45,719.21 244.90,719.20 244.17,719.13Z M428.50,690.55C431.46,689.59 435.50,687.22 437.75,685.12C443.26,680.00 445.68,674.50 445.65,667.23C445.62,658.80 442.10,652.04 435.00,646.79C433.99,646.04 432.68,644.97 432.08,644.41L431.00,643.40L431.00,626.96L431.00,610.52L435.14,606.47C438.81,602.87 439.42,602.11 440.61,599.62C442.54,595.57 443.03,593.57 443.04,589.71C443.06,585.83 442.55,583.74 440.68,580.02C438.18,575.06 432.54,570.15 427.53,568.58C424.35,567.58 417.16,567.51 414.33,568.46C411.23,569.50 408.35,571.31 405.59,573.95C403.39,576.05 402.70,576.98 401.49,579.49C399.67,583.24 399.01,585.98 399.01,589.83C399.01,593.69 399.70,596.55 401.38,599.67C403.02,602.71 405.06,605.14 407.69,607.22C411.41,610.13 411.17,608.78 411.16,626.83C411.15,645.11 411.45,643.64 407.23,646.38C403.00,649.13 398.57,654.88 396.59,660.19C395.94,661.92 395.85,662.83 395.84,667.50C395.84,671.86 395.95,673.17 396.46,674.67C398.63,681.05 405.27,687.86 411.67,690.27C416.02,691.92 423.88,692.05 428.50,690.55Z M517.33,647.67C521.34,647.27 523.86,646.61 526.91,645.17C534.43,641.63 540.14,634.91 542.48,626.87C543.64,622.86 543.72,614.82 542.64,611.35C541.82,608.75 538.59,602.71 536.93,600.69C534.43,597.65 531.01,594.95 527.35,593.15C519.88,589.48 512.69,589.09 504.29,591.90C501.85,592.72 500.46,593.02 499.85,592.87C498.87,592.62 494.84,588.66 493.28,586.41C492.72,585.60 492.16,584.23 491.99,583.24C491.83,582.28 491.54,574.90 491.36,566.83C490.88,545.86 490.84,545.51 488.32,541.27C485.66,536.80 485.17,536.28 465.00,516.90C458.12,510.30 450.77,503.22 448.67,501.17C446.56,499.12 438.83,491.75 431.50,484.78C415.56,469.62 407.19,461.33 405.83,459.35L404.83,457.89L404.75,380.79L404.66,303.70L405.45,301.93C406.63,299.29 409.62,296.10 428.37,277.50C448.14,257.89 456.00,250.44 457.66,249.74C458.58,249.35 461.41,249.18 470.67,248.96C485.60,248.60 489.20,248.28 492.68,247.02C496.94,245.46 500.21,242.85 509.35,233.69C517.87,225.15 519.98,222.60 521.81,218.57C523.92,213.94 524.06,212.73 524.33,196.33C524.46,188.17 524.68,181.23 524.82,180.91C524.96,180.58 526.15,179.69 527.46,178.92C532.05,176.23 536.24,172.72 538.49,169.67C540.29,167.22 542.58,162.37 543.36,159.33C543.94,157.11 544.10,155.53 544.11,152.00C544.13,146.46 543.54,143.71 541.40,139.40C537.59,131.74 530.63,125.99 522.50,123.79C516.55,122.18 509.33,122.64 503.84,125.00C499.25,126.97 493.44,131.71 490.75,135.69C489.01,138.26 487.12,142.38 486.46,145.00C485.60,148.46 485.60,155.48 486.46,159.17C488.16,166.47 494.05,174.01 501.26,178.10C502.49,178.80 503.69,179.62 503.92,179.92C504.40,180.54 504.49,201.46 504.04,207.07C503.71,211.11 503.48,211.48 497.17,217.95C491.43,223.83 487.55,227.17 485.63,227.86C484.44,228.29 481.49,228.45 469.83,228.70C454.33,229.04 453.96,229.08 449.17,231.10C445.31,232.72 444.27,233.68 420.00,257.86C388.76,288.99 388.85,288.90 386.26,295.34L384.86,298.83L384.85,378.17C384.83,464.14 384.77,460.96 386.64,465.84C388.67,471.13 391.06,473.82 408.67,490.60C416.09,497.68 424.12,505.36 426.50,507.67C428.88,509.98 434.21,515.08 438.33,519.00C442.46,522.92 446.06,526.38 446.33,526.68C446.61,526.99 450.06,530.28 454.00,534.01C467.85,547.10 470.31,549.70 471.04,552.05C471.24,552.69 471.52,559.80 471.69,568.66C471.85,577.18 472.15,585.36 472.36,586.83C472.83,590.27 474.31,594.09 476.35,597.10C477.24,598.42 479.93,601.57 482.32,604.10C486.93,608.98 487.03,609.16 486.35,611.67C486.18,612.31 485.87,614.35 485.67,616.21C485.03,622.20 486.38,628.36 489.50,633.65C491.28,636.66 495.82,641.59 498.17,643.06C505.07,647.38 509.50,648.45 517.33,647.67Z M280.67,630.25C285.94,628.24 290.00,625.59 290.00,624.15C290.00,623.26 289.13,622.90 285.50,622.31C265.86,619.13 253.99,607.26 250.84,587.67C250.00,582.42 250.29,575.64 251.67,568.00C252.26,564.77 253.67,555.98 254.37,551.17C255.24,545.16 255.31,535.04 254.51,530.33C253.95,527.03 252.56,520.56 252.04,518.83C250.36,513.20 247.06,506.29 243.58,501.06C233.43,485.83 217.00,473.91 197.50,467.62C192.85,466.12 189.39,465.37 172.50,462.19C162.44,460.30 150.74,455.76 143.00,450.74C136.81,446.73 130.71,441.13 126.94,435.99C123.00,430.61 119.60,422.74 118.63,416.75C117.77,411.46 118.39,400.92 119.85,396.17C120.13,395.25 120.66,393.39 121.03,392.03C122.35,387.16 126.05,379.37 129.87,373.47C134.21,366.73 138.62,361.36 145.76,354.11C150.47,349.33 151.46,348.00 150.32,348.00C149.66,348.00 138.84,353.55 137.67,354.49C137.39,354.71 136.35,355.38 135.35,355.98C129.92,359.25 121.21,366.68 116.05,372.43C106.12,383.51 99.02,398.65 97.95,411.00C97.11,420.80 98.26,430.37 101.22,437.96C109.07,458.15 126.31,473.47 151.00,482.21C156.07,484.00 166.84,486.72 171.83,487.47C187.21,489.79 197.15,493.08 206.72,499.01C218.75,506.47 227.65,517.94 230.66,529.86C233.01,539.17 233.16,545.15 231.33,557.33C227.88,580.23 228.16,590.50 232.56,601.83C235.19,608.64 239.08,614.67 243.73,619.20C248.90,624.24 253.88,627.29 260.50,629.47C265.36,631.07 267.20,631.32 273.33,631.19C277.87,631.09 278.77,630.97 280.67,630.25Z M570.67,555.33C579.94,552.71 588.41,544.38 591.00,535.33C591.67,533.00 591.74,531.73 592.01,516.67C592.30,499.98 592.55,493.04 592.87,492.18C592.98,491.91 594.32,490.63 595.85,489.34C600.51,485.42 602.84,481.78 604.32,476.15C606.71,467.03 602.16,456.75 593.61,451.93C590.21,450.01 587.81,449.33 583.62,449.09C578.61,448.81 574.65,449.84 570.83,452.42C566.66,455.23 563.47,459.00 561.91,462.94C561.00,465.27 560.89,465.94 560.75,470.34C560.57,475.64 560.95,477.99 562.49,481.17C563.65,483.56 566.58,486.97 569.85,489.73L572.67,492.12L572.66,509.65C572.66,528.59 572.59,529.40 570.86,532.02C569.73,533.73 566.86,535.84 565.00,536.34C560.92,537.42 556.47,534.96 554.50,530.54C553.86,529.10 553.68,527.87 553.38,522.67C552.98,515.73 552.54,513.70 550.61,509.86C548.47,505.60 546.09,502.99 532.00,489.49C529.89,487.47 526.22,483.95 523.83,481.67C508.93,467.41 501.20,459.72 500.40,458.36L499.50,456.83L499.50,434.67C499.50,407.00 499.21,408.83 504.43,403.55C507.72,400.22 509.70,398.72 512.22,397.64C513.79,396.97 514.18,396.97 552.82,397.07C574.28,397.13 592.09,397.30 592.40,397.45C592.71,397.60 593.86,399.02 594.95,400.61C601.09,409.54 607.88,414.13 617.00,415.51C622.72,416.38 627.96,415.69 633.27,413.38C642.29,409.46 648.53,402.07 651.23,392.09C652.34,387.99 652.47,382.16 651.54,378.59C649.09,369.24 643.76,362.36 635.66,358.07C627.03,353.49 617.25,353.38 608.43,357.75C603.53,360.17 599.59,363.55 596.73,367.76C596.21,368.53 594.93,370.68 593.90,372.52C592.63,374.80 591.73,376.03 591.10,376.35C590.32,376.74 583.68,376.86 551.67,377.07C527.02,377.24 512.10,377.46 510.20,377.70C503.23,378.57 499.89,380.74 490.16,390.74C485.82,395.19 484.55,396.73 483.28,399.02C480.05,404.88 479.69,407.53 479.67,425.44C479.67,436.26 479.53,438.00 478.66,438.00C478.08,438.00 462.68,423.38 452.17,412.84C447.96,408.63 447.07,407.56 446.56,406.11C445.99,404.48 445.96,402.84 446.06,377.94C446.16,354.27 446.23,351.37 446.72,350.28C447.30,349.00 450.72,345.32 460.33,335.65C468.65,327.28 472.34,323.93 474.60,322.73L476.58,321.67L510.87,321.36C548.75,321.01 547.72,321.07 552.56,318.84C556.52,317.01 556.54,316.99 573.64,300.26C579.20,294.82 583.47,290.89 583.97,290.77C584.45,290.65 585.78,290.82 587.00,291.16C593.50,292.96 593.84,293.02 597.84,293.03C602.50,293.04 605.52,292.37 609.87,290.34C618.07,286.53 623.15,280.63 626.15,271.45C626.89,269.18 627.00,268.28 627.00,264.31C627.00,255.31 624.57,249.57 618.11,243.30C614.38,239.67 611.19,237.70 606.62,236.20C602.17,234.73 598.40,234.35 594.52,234.97C587.47,236.11 581.65,239.07 576.95,243.90C573.01,247.96 571.34,250.85 569.62,256.67C568.67,259.88 568.44,266.44 569.17,269.67C569.48,271.04 569.89,272.90 570.08,273.79L570.44,275.41L560.00,285.82C549.08,296.71 546.83,298.74 544.13,300.09L542.50,300.91L527.33,301.12C518.99,301.24 504.97,301.37 496.17,301.40C487.37,301.44 477.98,301.55 475.31,301.65L470.46,301.83L466.60,303.78C462.84,305.67 462.56,305.89 456.12,312.05C449.74,318.16 446.24,321.66 436.10,332.09C429.05,339.36 427.46,342.42 426.61,350.38C425.99,356.17 426.01,404.36 426.63,408.00C427.96,415.78 429.25,417.91 437.77,426.44C443.94,432.61 462.05,450.14 478.48,465.83C482.13,469.32 485.72,472.77 486.47,473.51C487.22,474.25 492.25,479.05 497.66,484.18C526.03,511.10 531.57,516.58 532.63,518.75C533.41,520.36 533.97,523.95 533.99,527.37C534.02,533.09 536.12,539.94 539.06,543.88C541.40,547.02 542.76,548.41 545.59,550.55C548.97,553.10 554.41,555.51 558.17,556.12C560.60,556.51 568.18,556.03 570.67,555.33Z M335.92,368.75C335.64,368.43 334.85,367.06 334.18,365.70C332.12,361.58 327.88,355.14 324.18,350.50C315.66,339.83 304.53,330.70 292.74,324.72C288.13,322.38 281.19,319.54 277.50,318.48C262.69,314.24 253.44,309.18 244.99,300.69C237.44,293.11 233.46,286.13 229.66,273.83C222.65,251.10 220.72,246.88 211.59,234.37C209.79,231.91 198.84,220.96 195.74,218.52C191.49,215.19 187.58,212.73 180.56,208.96C177.44,207.28 175.75,206.47 170.50,204.17C169.95,203.93 168.08,203.26 166.34,202.68C162.65,201.45 161.49,200.79 159.88,199.01C155.59,194.26 157.56,182.79 164.28,173.36C166.55,170.18 172.98,163.66 176.27,161.21C183.09,156.14 191.97,152.02 200.00,150.19C205.73,148.89 214.67,147.54 220.19,147.15C223.45,146.92 224.33,146.64 224.33,145.85C224.33,145.09 219.68,143.16 214.00,141.55C210.08,140.44 205.90,140.00 199.21,140.00C190.40,140.00 186.94,140.55 177.00,143.56C174.65,144.27 168.60,146.96 165.35,148.74C159.74,151.81 154.62,155.74 149.97,160.55C141.27,169.54 136.15,179.10 133.49,191.33C133.03,193.44 132.43,195.33 132.16,195.53C131.86,195.76 128.59,195.99 123.59,196.13C108.79,196.56 104.97,196.97 94.50,199.29C92.12,199.82 88.28,200.78 85.97,201.43C80.13,203.07 79.31,203.11 78.71,201.80C78.05,200.36 77.01,192.49 76.79,187.33C76.57,182.02 77.06,173.00 77.81,168.83C80.06,156.28 85.47,143.33 93.23,131.92C101.26,120.12 112.02,109.37 123.33,101.84C130.66,96.96 140.49,91.72 145.83,89.83C147.30,89.31 148.65,88.77 148.84,88.63C149.03,88.49 151.13,87.84 153.51,87.19C155.89,86.54 158.28,85.86 158.83,85.69C161.91,84.71 172.08,83.01 174.92,82.99C176.40,82.99 179.94,82.20 180.35,81.78C180.51,81.62 181.48,79.17 182.50,76.33C185.70,67.44 188.14,62.58 192.93,55.50C198.18,47.77 205.32,40.26 214.21,33.13C216.49,31.31 224.41,26.12 227.67,24.32C239.88,17.56 252.84,13.43 267.50,11.62C271.79,11.09 284.05,11.08 287.50,11.61C295.81,12.88 300.58,13.98 305.26,15.69C307.86,16.64 316.21,20.98 318.98,22.82C321.82,24.71 326.68,29.24 328.95,32.13C332.24,36.30 334.98,41.94 336.26,47.17C336.80,49.34 336.83,56.68 336.83,157.33L336.83,265.17L336.10,265.27C334.65,265.48 325.51,260.31 321.03,256.74C313.66,250.88 307.61,243.40 303.43,234.98C300.77,229.65 299.52,226.14 298.11,220.17C297.20,216.30 297.17,215.86 297.17,207.33C297.18,200.24 297.29,197.88 297.77,195.33C298.77,190.04 300.23,184.51 302.51,177.33C306.64,164.35 308.26,158.31 309.29,152.00C311.48,138.59 311.52,132.00 309.47,120.00C308.75,115.77 308.24,113.94 306.44,109.00C302.83,99.15 297.57,90.86 290.35,83.66C286.85,80.18 281.00,75.51 278.27,74.03C271.94,70.60 267.18,68.72 260.83,67.13C255.91,65.90 255.73,65.88 249.17,65.86C243.03,65.84 242.16,65.91 238.19,66.78C235.82,67.30 232.90,68.03 231.69,68.40C226.09,70.11 217.67,75.66 217.67,77.63C217.67,78.43 219.39,78.70 226.25,78.99C235.49,79.38 243.33,80.47 248.00,81.99C264.46,87.37 277.72,99.09 284.43,114.17C286.39,118.57 288.53,126.68 289.05,131.67C289.53,136.31 289.17,145.00 288.31,149.59C286.75,157.87 285.90,161.21 282.32,173.17C280.05,180.73 278.08,189.03 277.48,193.50C277.06,196.67 276.89,200.37 276.87,207.33C276.84,215.79 276.92,217.31 277.59,221.17C278.37,225.67 278.63,226.73 280.28,232.00C281.20,234.94 284.09,242.08 284.66,242.83C284.80,243.02 285.49,244.22 286.18,245.50C291.22,254.80 299.68,263.96 311.50,272.91C326.46,284.23 332.24,291.09 336.27,302.33C336.75,303.67 336.82,307.48 336.92,336.58C336.98,355.36 336.90,369.33 336.73,369.33C336.57,369.33 336.21,369.07 335.92,368.75Z"/></symbol>
+</svg>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#/" aria-label="Génération Hybride, accueil"><svg aria-hidden="true"><use href="#gh"/></svg>GÉNÉRATION HYBRIDE</a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#/" data-route="accueil">Accueil</a><a href="#/services" data-route="services">Services</a><a href="#/methode" data-route="methode">Méthode &amp; packs</a><a href="#/contact" data-route="contact">Contact</a>
+    </nav>
+    <span class="spacer"></span>
+    <a class="pill pill-glass" href="https://wa.me/2250769814465" target="_blank" rel="noopener">WhatsApp</a>
+    <button class="menu" id="menu" type="button" aria-label="Ouvrir le menu" aria-expanded="false"><svg viewBox="0 0 20 20"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+  </div>
+</header>
+
+<main id="top">
+<div class="view" data-view="accueil" data-title="Génération Hybride">
+  <section class="hero" aria-label="Accueil">
+    <svg class="fallback" viewBox="10 10 683 711" aria-hidden="true"><use href="#gh"/></svg>
+    <canvas class="geo" aria-hidden="true"></canvas>
+    <canvas id="brain" aria-hidden="true"></canvas>
+    <div class="grain"></div>
+    <div class="wrap hero-inner">
+      <h1>Votre image.</h1>
+      <div class="hero-mid"><h1 class="h1b">Vos outils.</h1></div>
+      <div class="hero-bottom">
+        <div class="hero-copy">
+          <p>Technologie, informatique et communication.<br>Une seule équipe pour faire grandir votre entreprise.</p>
+          <div class="actions">
+            <a class="pill pill-blue" href="#/contact">Parler de votre projet</a>
+            <a class="pill pill-glass" href="#/services">Nos services</a>
+          </div>
+        </div>
+        <div class="hero-meta">
+          <span>Abidjan · Côte d’Ivoire</span>
+          <button class="ctrl" id="pause" type="button" aria-label="Mettre l’animation en pause" aria-pressed="false">
+            <svg viewBox="0 0 16 16" id="ico-pause"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker" aria-hidden="true"><div class="track">
+    <span>Logiciels</span><span>Applications mobiles</span><span>Sites web</span><span>Cybersécurité</span><span>Stratégie de marque</span><span>Identité visuelle</span><span>Vidéo &amp; photo</span><span>Réseaux sociaux</span><span>Publicité digitale</span>
+    <span>Logiciels</span><span>Applications mobiles</span><span>Sites web</span><span>Cybersécurité</span><span>Stratégie de marque</span><span>Identité visuelle</span><span>Vidéo &amp; photo</span><span>Réseaux sociaux</span><span>Publicité digitale</span>
+  </div></div>
+
+  <section class="band" id="poles">
+    <div class="wrap">
+      <div class="head">
+        <h2>Deux expertises. Un seul interlocuteur.</h2>
+        <p>Vos outils et votre communication avancent ensemble : ce que vous dites correspond à ce que vos outils permettent de faire.</p>
+      </div>
+      <div class="poles">
+        <article class="pole tech" data-tilt>
+          <div class="orb"></div>
+          <span class="tag">Pôle 01</span>
+          <h3>Technologie &amp; Informatique</h3>
+          <ul><li>Logiciels et applications métier</li><li>Applications mobiles Android et iOS</li><li>Sites web et plateformes</li><li>Automatisation et bases de données</li><li>Cybersécurité et maintenance</li></ul>
+        </article>
+        <article class="pole com" data-tilt>
+          <span class="tag" style="color:var(--signal)">Pôle 02</span>
+          <h3>Communication &amp; Stratégie</h3>
+          <ul><li>Stratégie de marque et de communication</li><li>Identité visuelle et design graphique</li><li>Photo, vidéo et motion design</li><li>Réseaux sociaux et publicité digitale</li><li>Communication événementielle et politique</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="band action" id="action">
+    <canvas class="geo" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div class="head"><h2>Vos outils, en action.</h2><p>Un site qui convertit, un WhatsApp qui répond pour vous, des chiffres clairs pour décider.</p></div>
+      <div class="stage" id="stage">
+        <div class="scene" id="scene">
+          <div class="layer browser">
+            <div class="bar"><i></i><i></i><i></i><b></b></div>
+            <div class="hero-mock">Votre entreprise, en ligne.</div>
+            <div class="row"><div></div><div></div><div></div></div>
+          </div>
+          <div class="layer phone">
+            <div class="top">Votre boutique · en ligne</div>
+            <div class="bub in">Bonsoir, c’est disponible ?</div>
+            <div class="bub out">Oui ! Voici nos modèles et nos prix. Livraison à Abidjan sous 24 h.</div>
+            <div class="bub in">Je commande le bleu.</div>
+            <div class="bub out">Parfait, commande enregistrée.</div>
+          </div>
+          <div class="layer dash">
+            <div class="k">Messages reçus ce mois</div>
+            <div class="v">Rapport mensuel</div>
+            <div class="bars"><i style="height:30%"></i><i style="height:45%"></i><i style="height:40%"></i><i style="height:62%"></i><i style="height:74%"></i><i style="height:92%"></i></div>
+          </div>
+          <div class="layer chip3d">Réponse automatique 24 h/24</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band cta-band">
+    <div class="wrap cta-grid">
+      <a class="cta-card" href="#/services"><span class="eyebrow">Page</span><h3>Nos services</h3><p>Logiciels, sites web, cybersécurité, identité visuelle, réseaux sociaux…</p><span class="arrow">→</span></a>
+      <a class="cta-card" href="#/methode"><span class="eyebrow">Page</span><h3>Méthode &amp; packs</h3><p>Comment nous travaillons et les packs pour démarrer.</p><span class="arrow">→</span></a>
+      <a class="cta-card dark" href="#/contact"><span class="eyebrow">Page</span><h3>Contact</h3><p>Le premier échange est gratuit et sans engagement.</p><span class="arrow">→</span></a>
+    </div>
+  </section>
+</div>
+<div class="view" data-view="services" data-title="Nos services · Génération Hybride" hidden>
+  <header class="page-head"><canvas class="geo" aria-hidden="true"></canvas><div class="wrap"><span class="eyebrow">Services</span><h1>Tout ce qu’il faut pour votre image et vos outils.</h1><p>Deux pôles, une seule équipe : de la première idée au suivi après livraison.</p></div></header>
+  <section class="band" id="services">
+    <div class="wrap">
+      <div class="head"><h2>Huit expertises</h2><p>Survolez une carte pour la voir en relief.</p></div>
+      <div class="services">
+        <article class="svc" data-tilt data-svc><div class="ic"><svg viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4.5l-3 15"/></svg></div><h3>Logiciels &amp; applications</h3><p>Des outils construits autour de vos processus réels.</p></article>
+        <article class="svc" data-tilt data-svc><div class="ic"><svg viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="15" rx="2"/><path d="M2.5 8.5h19M7 13h5M7 15.5h8"/></svg></div><h3>Sites web</h3><p>Vitrine, institutionnel ou boutique, rapides et adaptés au mobile.</p></article>
+        <article class="svc" data-tilt data-svc><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2.8l7.5 3v5.6c0 4.6-3.1 8.4-7.5 9.8-4.4-1.4-7.5-5.2-7.5-9.8V5.8z"/><path d="M8.8 12.2l2.2 2.2 4.3-4.6"/></svg></div><h3>Cybersécurité</h3><p>Audit, sauvegardes et accès protégés pour vos données.</p></article>
+        <article class="svc" data-tilt data-svc><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg></div><h3>Automatisation</h3><p>Chatbots WhatsApp, relances et rapports sans ressaisie.</p></article>
+        <article class="svc" data-tilt data-svc><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg></div><h3>Stratégie</h3><p>Positionnement, messages et plans de communication.</p></article>
+        <article class="svc" data-tilt data-svc><div class="ic"><svg viewBox="0 0 24 24"><path d="M3.5 20.5l4.2-1 11-11a2.1 2.1 0 00-3-3l-11 11z"/><path d="M14 6.5l3 3"/></svg></div><h3>Identité visuelle</h3><p>Logos, chartes graphiques et supports qui vous ressemblent.</p></article>
+        <article class="svc" data-tilt data-svc><div class="ic"><svg viewBox="0 0 24 24"><rect x="2.5" y="6" width="13.5" height="12" rx="2"/><path d="M16 10.5l5.5-3v9l-5.5-3"/></svg></div><h3>Photo &amp; vidéo</h3><p>Shooting, vidéos promotionnelles et motion design.</p></article>
+        <article class="svc" data-tilt data-svc><div class="ic"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="5.5" r="2.6"/><circle cx="18" cy="18.5" r="2.6"/><path d="M8.3 10.8l7.4-4M8.3 13.2l7.4 4"/></svg></div><h3>Réseaux &amp; publicité</h3><p>Community management et campagnes ciblées, avec rapport mensuel.</p></article>
+      </div>
+    </div>
+  </section>
+  <section class="band" style="padding-top:0"><div class="wrap next"><p>Vous savez ce dont vous avez besoin ?</p><a class="pill pill-blue" href="#/contact">Demander un devis</a><a class="pill pill-line" href="#/methode">Voir notre méthode</a></div></section>
+</div>
+
+
+
+<div class="view" data-view="methode" data-title="Méthode &amp; packs · Génération Hybride" hidden>
+  <header class="page-head"><canvas class="geo" aria-hidden="true"></canvas><div class="wrap"><span class="eyebrow">Méthode &amp; packs</span><h1>Une méthode claire, des packs pour démarrer.</h1><p>Chaque étape est validée avec vous, et le prix est écrit avant de commencer.</p></div></header>
+  <section class="band" id="methode">
+    <div class="wrap">
+      <div class="head"><h2>Notre méthode</h2><p>Chaque étape est validée avec vous avant de passer à la suivante.</p></div>
+      <div class="steps">
+        <div class="step"><span class="n">01</span><h3>Écoute</h3><p>Un premier échange gratuit pour comprendre votre activité.</p></div>
+        <div class="step"><span class="n">02</span><h3>Diagnostic</h3><p>Votre image, vos outils, vos concurrents, votre budget.</p></div>
+        <div class="step"><span class="n">03</span><h3>Proposition</h3><p>Un périmètre précis, un planning et un devis écrit.</p></div>
+        <div class="step"><span class="n">04</span><h3>Conception</h3><p>Création et développement, avec des points d’étape.</p></div>
+        <div class="step"><span class="n">05</span><h3>Livraison &amp; suivi</h3><p>Mise en ligne, prise en main et accompagnement.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="packs" style="padding-top:0">
+    <div class="wrap">
+      <div class="head"><h2>Des packs pour démarrer</h2><p>Accessibles aux petites entreprises, modulables à mesure que vous grandissez.</p></div>
+      <div class="packs">
+        <article class="pack"><span class="who">Entrepreneurs</span><h3>Identité de départ</h3><ul><li>Logo et palette de couleurs</li><li>Choix typographiques</li><li>Mini-charte graphique</li></ul><span class="price">Sur devis</span></article>
+        <article class="pack feat"><span class="who">Petites entreprises</span><h3>Présence digitale</h3><ul><li>Profils sociaux optimisés</li><li>Calendrier éditorial</li><li>Publications et suivi</li></ul><span class="price">Sur devis</span></article>
+        <article class="pack"><span class="who">PME</span><h3>Visibilité web</h3><ul><li>Site vitrine adapté au mobile</li><li>Référencement de base</li><li>Fiche Google configurée</li></ul><span class="price">Sur devis</span></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" style="padding-top:0">
+    <div class="wrap">
+      <div class="why">
+        <div><h3>Un seul interlocuteur</h3><p>Moins de coordination, moins d’informations perdues.</p></div>
+        <div><h3>Des prix annoncés</h3><p>Périmètre, livrables et délais écrits avant de commencer.</p></div>
+        <div><h3>À distance ou sur place</h3><p>Nous travaillons avec vous où que vous soyez.</p></div>
+        <div><h3>Vous restez propriétaire</h3><p>Vos fichiers et vos droits vous sont remis après paiement.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="band" style="padding-top:0"><div class="wrap next"><p>Un pack vous intéresse ?</p><a class="pill pill-blue" href="#/contact">Parlons-en</a><a class="pill pill-line" href="#/services">Tous nos services</a></div></section>
+</div>
+<div class="view" data-view="contact" data-title="Contact · Génération Hybride" hidden>
+
+  <section class="band contact page-contact" id="contact">
+    <canvas class="geo" aria-hidden="true"></canvas>
+    <div class="wrap contact-grid">
+      <div>
+        <span class="eyebrow" style="color:#8FB2FF">Contact</span>
+        <h2>Parlons de votre projet.</h2>
+        <p class="lead">Le premier échange est gratuit et sans engagement. Dites-nous ce que vous voulez et laissez votre WhatsApp ou votre e-mail : nous vous recontactons. Vous pouvez aussi nous écrire directement sur WhatsApp.</p>
+        <div class="num"><strong id="tel">+225 07 69 81 44 65</strong><button class="pill pill-glass" type="button" id="copy" style="padding:10px 18px;font-size:14px">Copier</button></div>
+        <p class="socials">Génération Hybride sur TikTok · Facebook · Instagram</p>
+      </div>
+      <form class="req" id="f" novalidate data-service="">
+        <label for="f-nom">Votre nom<input id="f-nom" name="nom" autocomplete="name" required></label>
+        <label for="f-svc">Le service qui vous intéresse
+          <select id="f-svc" name="service">
+            <option>Logiciels &amp; applications</option><option>Sites web</option><option>Cybersécurité</option><option>Automatisation</option><option>Stratégie</option><option>Identité visuelle</option><option>Photo &amp; vidéo</option><option>Réseaux &amp; publicité</option><option>Je ne sais pas encore</option>
+          </select></label>
+        <label for="f-msg">Ce que vous voulez<textarea id="f-msg" name="besoin" placeholder="Votre activité, votre objectif, votre échéance…" required></textarea></label>
+        <fieldset class="via"><legend>Comment vous recontacter ?</legend>
+          <label class="chip"><input type="radio" name="via" value="whatsapp" checked> WhatsApp</label>
+          <label class="chip"><input type="radio" name="via" value="email"> E-mail</label>
+        </fieldset>
+        <label for="f-contact"><span class="via-label">Votre numéro WhatsApp</span><input id="f-contact" name="contact" inputmode="tel" autocomplete="tel" placeholder="+225 07 00 00 00 00" required></label>
+        <div class="req-actions">
+          <button class="pill pill-blue" type="submit">Envoyer ma demande</button>
+          <a class="pill pill-wa" href="https://wa.me/2250769814465" target="_blank" rel="noopener">Nous écrire sur WhatsApp</a>
+        </div>
+        <div class="wa-out" role="status"></div>
+      </form>
+    </div>
+  </section>
+</div>
+</main>
+
+<dialog class="sheet" id="sheet" aria-labelledby="sheet-title">
+  <button class="sheet-x" type="button" id="sheet-x" aria-label="Fermer">×</button>
+  <span class="eyebrow">Votre demande</span>
+  <h2 id="sheet-title">Service</h2>
+  <p class="sheet-sub">Dites-nous ce que vous voulez et laissez un moyen de vous recontacter.</p>
+  <form class="req" id="f2" novalidate data-service="">
+        <label for="g-nom">Votre nom<input id="g-nom" name="nom" autocomplete="name" required></label>
+        <label for="g-svc">Le service qui vous intéresse
+          <select id="g-svc" name="service">
+            <option>Logiciels &amp; applications</option><option>Sites web</option><option>Cybersécurité</option><option>Automatisation</option><option>Stratégie</option><option>Identité visuelle</option><option>Photo &amp; vidéo</option><option>Réseaux &amp; publicité</option><option>Je ne sais pas encore</option>
+          </select></label>
+        <label for="g-msg">Ce que vous voulez<textarea id="g-msg" name="besoin" placeholder="Votre activité, votre objectif, votre échéance…" required></textarea></label>
+        <fieldset class="via"><legend>Comment vous recontacter ?</legend>
+          <label class="chip"><input type="radio" name="via2" value="whatsapp" checked> WhatsApp</label>
+          <label class="chip"><input type="radio" name="via2" value="email"> E-mail</label>
+        </fieldset>
+        <label for="g-contact"><span class="via-label">Votre numéro WhatsApp</span><input id="g-contact" name="contact" inputmode="tel" autocomplete="tel" placeholder="+225 07 00 00 00 00" required></label>
+        <div class="req-actions">
+          <button class="pill pill-blue" type="submit">Envoyer ma demande</button>
+          <a class="pill pill-wa" href="https://wa.me/2250769814465" target="_blank" rel="noopener">Nous écrire sur WhatsApp</a>
+        </div>
+        <div class="wa-out" role="status"></div>
+      </form>
+</dialog>
+
+<a class="wa-float" href="https://wa.me/2250769814465" target="_blank" rel="noopener" aria-label="Nous écrire sur WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.4 9.4 0 0 0-8.1 14.2L2.6 21.5l4.9-1.3A9.4 9.4 0 1 0 12 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.6 7.6c.2-.4.5-.4.8-.4h.5c.2 0 .4 0 .6.5l.7 1.7c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.5.9 1.6 2 2.6 2.5.2.1.4.1.5 0l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.4 0 .4-.1 1.1-.6 1.5-.5.4-1.4.7-2.4.4-1.3-.4-2.7-1.2-3.9-2.4-1.1-1.1-1.9-2.5-2.1-3.5-.2-1 .2-1.8.6-2.3z" fill="currentColor"/></svg>
+  <span>Nous écrire sur WhatsApp</span>
+</a>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#/"><svg aria-hidden="true"><use href="#gh"/></svg>GÉNÉRATION HYBRIDE</a>
+    <nav class="foot-links" aria-label="Pages"><a href="#/">Accueil</a><a href="#/services">Services</a><a href="#/methode">Méthode &amp; packs</a><a href="#/contact">Contact</a></nav>
+    <span>© 2026 Génération Hybride · Abidjan</span>
+  </div>
+</footer>
+
+<script src="assets/three.min.js"></script>
+<script>
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- navigation entre pages ---------- */
+  const views = [...document.querySelectorAll('.view')];
+  function route(){
+    const h = (location.hash || '#/').replace(/^#\/?/, '');
+    const name = views.some(v => v.dataset.view === h) ? h : 'accueil';
+    views.forEach(v => { v.hidden = v.dataset.view !== name; });
+    document.querySelectorAll('[data-route]').forEach(a => { const on = a.dataset.route === name; a.classList.toggle('on', on); on ? a.setAttribute('aria-current','page') : a.removeAttribute('aria-current'); });
+    const v = views.find(v => v.dataset.view === name); document.title = v.dataset.title.replace('&amp;','&');
+    window.scrollTo(0, 0);
+    window.dispatchEvent(new Event('resize'));
+  }
+  const nav = document.querySelector('.nav'), menu = document.getElementById('menu');
+  menu.addEventListener('click', () => { const o = nav.classList.toggle('open'); menu.setAttribute('aria-expanded', String(o)); menu.setAttribute('aria-label', o ? 'Fermer le menu' : 'Ouvrir le menu'); });
+  addEventListener('hashchange', () => { nav.classList.remove('open'); menu.setAttribute('aria-expanded','false'); });
+  addEventListener('hashchange', route); route();
+
+
+  /* ---------- inclinaison 3D des cartes ---------- */
+  document.querySelectorAll('[data-tilt]').forEach(el => {
+    if (reduce) return;
+    el.addEventListener('pointermove', e => {
+      const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      el.style.transform = `rotateY(${x * 12}deg) rotateX(${-y * 12}deg) translateZ(0)`;
+    });
+    el.addEventListener('pointerleave', () => { el.style.transform = ''; });
+  });
+
+  /* ---------- scène « outils en action » ---------- */
+  const stage = document.getElementById('stage'), scene = document.getElementById('scene');
+  if (!reduce) {
+    stage.addEventListener('pointermove', e => {
+      const r = stage.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      scene.style.setProperty('--ry', (x * 30 - 10) + 'deg'); scene.style.setProperty('--rx', (10 - y * 18) + 'deg');
+    });
+    stage.addEventListener('pointerleave', () => { scene.style.setProperty('--ry', '-14deg'); scene.style.setProperty('--rx', '10deg'); });
+  }
+
+  /* ---------- contact ---------- */
+  const copy = document.getElementById('copy');
+  copy.addEventListener('click', () => {
+    const t = '+2250769814465';
+    const done = () => { copy.textContent = 'Copié'; setTimeout(() => copy.textContent = 'Copier', 1800); };
+    try { navigator.clipboard.writeText(t).then(done, () => sel()); } catch (e) { sel(); }
+    function sel(){ const r = document.createRange(); r.selectNodeContents(document.getElementById('tel')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  });
+
+  /* ---------- demandes : service choisi, besoin, WhatsApp ou e-mail ---------- */
+  // Pour recevoir aussi les demandes par e-mail sans passer par WhatsApp, indiquer ici
+  // l'adresse d'un service de formulaires (ex. https://formspree.io/f/xxxx). Vide = WhatsApp seul.
+  const FORM_ENDPOINT = '';
+  const WA = '2250769814465';
+  function wireForm(form){
+    const q = n => form.querySelector(`[name="${n}"]`);
+    const contact = q('contact'), label = form.querySelector('.via-label'), out = form.querySelector('.wa-out');
+    form.querySelectorAll('input[type=radio]').forEach(r => r.addEventListener('change', () => {
+      const mail = r.value === 'email' && r.checked;
+      if (!r.checked) return;
+      label.textContent = mail ? 'Votre adresse e-mail' : 'Votre numéro WhatsApp';
+      contact.type = mail ? 'email' : 'tel'; contact.inputMode = mail ? 'email' : 'tel';
+      contact.autocomplete = mail ? 'email' : 'tel'; contact.placeholder = mail ? 'vous@exemple.com' : '+225 07 00 00 00 00';
+      contact.value = ''; contact.classList.remove('err');
+    }));
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const via = form.querySelector('input[type=radio]:checked').value;
+      const nom = q('nom').value.trim(), svc = q('service').value, besoin = q('besoin').value.trim(), c = contact.value.trim();
+      form.querySelectorAll('.err').forEach(x => x.classList.remove('err'));
+      const bad = [];
+      if (!nom) bad.push([q('nom'), 'votre nom']);
+      if (!besoin) bad.push([q('besoin'), 'ce que vous voulez']);
+      const okC = via === 'email' ? /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(c) : c.replace(/\D/g, '').length >= 8;
+      if (!okC) bad.push([contact, via === 'email' ? 'une adresse e-mail valide' : 'un numéro WhatsApp valide']);
+      out.innerHTML = '';
+      if (bad.length) {
+        bad.forEach(([el]) => el.classList.add('err')); bad[0][0].focus();
+        out.textContent = 'Il manque : ' + bad.map(b => b[1]).join(', ') + '.'; out.classList.add('on'); return;
+      }
+      const txt = `Bonjour Génération Hybride,\nJe suis ${nom}.\nService : ${svc}\nCe que je veux : ${besoin}\nMe recontacter par ${via === 'email' ? 'e-mail' : 'WhatsApp'} : ${c}`;
+      if (FORM_ENDPOINT) { try { fetch(FORM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ nom, service: svc, besoin, recontacter_par: via, contact: c }) }); } catch (err) {} }
+      const t = document.createElement('p'); t.className = 'done'; t.textContent = 'Votre demande est prête.';
+      const p = document.createElement('p'); p.style.margin = '0 0 10px';
+      p.textContent = FORM_ENDPOINT ? 'Elle nous a été transmise. Pour aller plus vite, envoyez-la aussi sur WhatsApp :' : 'Dernière étape : envoyez-la sur WhatsApp, elle arrive directement chez nous.';
+      const a = document.createElement('a'); a.className = 'pill pill-wa'; a.href = `https://wa.me/${WA}?text=` + encodeURIComponent(txt); a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'Envoyer ma demande sur WhatsApp →';
+      out.append(t, p, a); out.classList.add('on'); a.focus();
+    });
+  }
+  wireForm(document.getElementById('f')); wireForm(document.getElementById('f2'));
+
+  const sheet = document.getElementById('sheet'), f2 = document.getElementById('f2');
+  function openSheet(name){
+    document.getElementById('sheet-title').textContent = name;
+    const sel = f2.querySelector('[name="service"]'); [...sel.options].forEach(o => o.selected = o.text === name);
+    f2.querySelector('.wa-out').classList.remove('on'); f2.querySelector('.wa-out').innerHTML = '';
+    if (sheet.showModal) sheet.showModal(); else sheet.setAttribute('open', '');
+    setTimeout(() => f2.querySelector('[name="besoin"]').focus(), 50);
+  }
+  document.getElementById('sheet-x').addEventListener('click', () => sheet.close ? sheet.close() : sheet.removeAttribute('open'));
+  sheet.addEventListener('click', e => { if (e.target === sheet) sheet.close(); });
+  document.querySelectorAll('[data-svc]').forEach(card => {
+    const name = card.querySelector('h3').textContent.trim();
+    card.tabIndex = 0; card.setAttribute('role', 'button'); card.setAttribute('aria-label', name + ' : faire une demande');
+    const go = document.createElement('span'); go.className = 'go'; go.innerHTML = 'Ça m’intéresse <span>→</span>'; card.append(go);
+    card.addEventListener('click', () => openSheet(name));
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openSheet(name); } });
+  });
+
+  /* ---------- formes géométriques en mouvement (contact) ---------- */
+  function geo(cv){
+    const sec = cv.parentElement, g = cv.getContext('2d');
+    let W = 0, H = 0, dpr = 1, shapes = [], nodes = [], stars = [], px = 0, py = 0, run = true, vis = false, t0 = performance.now();
+    const BLUE = '58,120,242', MIST = '221,228,240';
+    function rnd(a, b){ return a + Math.random() * (b - a); }
+    function build(){
+      const r = sec.getBoundingClientRect(); W = r.width; H = r.height; if (!W || !H) return;
+      dpr = Math.min(devicePixelRatio || 1, 2); cv.width = W * dpr; cv.height = H * dpr;
+      const n = W < 700 ? 7 : 13;
+      // lignes ouvertes : 3 à 5 segments reliés par des points (jamais refermées)
+      shapes = Array.from({ length: n }, () => {
+        const k = 3 + Math.floor(Math.random() * 3), pts = []; let ang = rnd(0, 6.28), x = 0, y = 0;
+        for (let i = 0; i < k; i++) { pts.push([x, y]); ang += rnd(-1.3, 1.3); const l = rnd(30, W < 700 ? 60 : 95); x += Math.cos(ang) * l; y += Math.sin(ang) * l; }
+        return { pts, x: rnd(0, W), y: rnd(0, H), z: rnd(.5, 1.3), a: rnd(0, 6.28), va: rnd(-.12, .12), vx: rnd(-9, 9), vy: rnd(-7, 7), c: Math.random() < .6 ? BLUE : MIST, ph: rnd(0, 6.28), m: 150 };
+      });
+      nodes = Array.from({ length: W < 700 ? 22 : 40 }, () => ({ x: rnd(0, W), y: rnd(0, H), vx: rnd(-12, 12), vy: rnd(-12, 12) }));
+      // petites étoiles qui se baladent et scintillent
+      stars = Array.from({ length: W < 700 ? 70 : 150 }, () => ({ x: rnd(0, W), y: rnd(0, H), r: rnd(.4, 1.6), vx: rnd(-6, 6), vy: rnd(-4, 4), ph: rnd(0, 6.28), sp: rnd(1, 3.5) }));
+    }
+    function poly(x, y, r, k, a){ g.beginPath(); for (let i = 0; i <= k; i++){ const t = a + i / k * Math.PI * 2; i ? g.lineTo(x + Math.cos(t) * r, y + Math.sin(t) * r) : g.moveTo(x + Math.cos(t) * r, y + Math.sin(t) * r); } g.closePath(); }
+    function cube(x, y, r, a, al){
+      const P = [-1, 1].flatMap(X => [-1, 1].flatMap(Y => [-1, 1].map(Z => [X, Y, Z])));
+      const ca = Math.cos(a), sa = Math.sin(a), cb = Math.cos(a * .7), sb = Math.sin(a * .7);
+      const pr = P.map(([X, Y, Z]) => { const x1 = X * ca - Z * sa, z1 = X * sa + Z * ca, y1 = Y * cb - z1 * sb; return [x + x1 * r * .6, y + y1 * r * .6]; });
+      g.beginPath();
+      for (let i = 0; i < 8; i++) for (let j = i + 1; j < 8; j++) { const d = (i ^ j); if (d === 1 || d === 2 || d === 4) { g.moveTo(pr[i][0], pr[i][1]); g.lineTo(pr[j][0], pr[j][1]); } }
+      g.stroke();
+    }
+    function draw(dt, t){
+      g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+      // réseau de points reliés
+      nodes.forEach(n => { n.x += n.vx * dt; n.y += n.vy * dt; if (n.x < 0 || n.x > W) n.vx *= -1; if (n.y < 0 || n.y > H) n.vy *= -1; });
+      g.lineWidth = 1;
+      for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d < 150) { g.strokeStyle = `rgba(${BLUE},${(1 - d / 150) * .35})`; g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke(); }
+      }
+      nodes.forEach(n => { g.fillStyle = `rgba(${MIST},.55)`; g.beginPath(); g.arc(n.x, n.y, 1.6, 0, 6.28); g.fill(); });
+      // étoiles
+      stars.forEach(st => {
+        st.x += st.vx * dt; st.y += st.vy * dt;
+        if (st.x < -4) st.x = W + 4; if (st.x > W + 4) st.x = -4; if (st.y < -4) st.y = H + 4; if (st.y > H + 4) st.y = -4;
+        const tw = .35 + .65 * Math.abs(Math.sin(t * st.sp + st.ph));
+        g.fillStyle = `rgba(${MIST},${tw * .85})`; g.beginPath(); g.arc(st.x + px * 12, st.y + py * 10, st.r, 0, 6.28); g.fill();
+        if (st.r > 1.3 && tw > .9) { g.strokeStyle = `rgba(${MIST},${(tw - .9) * 4})`; g.lineWidth = .8; g.beginPath(); g.moveTo(st.x - 5, st.y); g.lineTo(st.x + 5, st.y); g.moveTo(st.x, st.y - 5); g.lineTo(st.x, st.y + 5); g.stroke(); }
+      });
+      // lignes ouvertes reliées par des points
+      shapes.forEach(sh => {
+        sh.x += sh.vx * dt * sh.z; sh.y += sh.vy * dt * sh.z; sh.a += sh.va * dt;
+        const m = sh.m + 40; if (sh.x < -m) sh.x = W + m; if (sh.x > W + m) sh.x = -m; if (sh.y < -m) sh.y = H + m; if (sh.y > H + m) sh.y = -m;
+        const ox = sh.x + px * 40 * sh.z, oy = sh.y + py * 30 * sh.z + Math.sin(t * .8 + sh.ph) * 8, ca = Math.cos(sh.a), sa = Math.sin(sh.a);
+        const P = sh.pts.map(([x, y], i) => { const w = Math.sin(t * 1.1 + sh.ph + i) * 3; return [ox + (x * ca - y * sa) * sh.z, oy + (x * sa + y * ca) * sh.z + w]; });
+        const al = .22 + .25 * sh.z * (.75 + .25 * Math.sin(t * 1.3 + sh.ph));
+        g.lineWidth = 1.2; g.strokeStyle = `rgba(${sh.c},${al})`;
+        g.beginPath(); P.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.stroke();
+        P.forEach(([x, y], i) => { g.fillStyle = `rgba(${sh.c},${Math.min(1, al * 2)})`; g.beginPath(); g.arc(x, y, i === 0 || i === P.length - 1 ? 3 : 2.2, 0, 6.28); g.fill(); });
+      });
+    }
+    let last = performance.now();
+    function loop(now){ if (!run || !vis) return; const dt = Math.min(.05, (now - last) / 1000); last = now; draw(dt, (now - t0) / 1000); requestAnimationFrame(loop); }
+    function start(){ last = performance.now(); requestAnimationFrame(loop); }
+    sec.addEventListener('pointermove', e => { const r = sec.getBoundingClientRect(); px = (e.clientX - r.left) / r.width - .5; py = (e.clientY - r.top) / r.height - .5; });
+    addEventListener('resize', () => { build(); draw(0, 0); });
+    new IntersectionObserver(es => { vis = es[0].isIntersecting; if (vis) { if (!shapes.length) build(); if (reduce) draw(0, 0); else start(); } }).observe(sec);
+    if (reduce) run = false;
+  }
+  document.querySelectorAll('canvas.geo').forEach(geo);
+
+  /* ---------- cerveau hybride en particules 3D ---------- */
+  const canvas = document.getElementById('brain');
+  if (!window.THREE) return;
+  let renderer;
+  try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true }); } catch (e) { return; }
+  document.querySelector('.hero .fallback').style.display = 'none';
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+  const sceneG = new THREE.Scene();
+  const cam = new THREE.PerspectiveCamera(38, 1, .1, 50); cam.position.set(0, 0, 4.2);
+
+  // échantillonner le symbole officiel
+  const W = 460, H = Math.round(W * 711 / 683), sc = W / 683;
+  const off = document.createElement('canvas'); off.width = W; off.height = H;
+  const cx = off.getContext('2d');
+  cx.setTransform(sc, 0, 0, sc, -10 * sc, -10 * sc);
+  cx.fill(new Path2D(document.getElementById('gh-path').getAttribute('d')), 'evenodd');
+  const img = cx.getImageData(0, 0, W, H).data;
+  const tgt = [], start = [], rnd = [], side = [];
+  const step = 2;
+  for (let y = 0; y < H; y += step) for (let x = 0; x < W; x += step) {
+    const A = (xx, yy) => (xx < 0 || yy < 0 || xx >= W || yy >= H) ? 0 : img[(yy * W + xx) * 4 + 3];
+    if (A(x, y) < 128) continue;
+    const edge = A(x - 3, y) < 128 || A(x + 3, y) < 128 || A(x, y - 3) < 128 || A(x, y + 3) < 128;
+    if (!edge && Math.random() > .3) continue;
+    const nx = (x / W - .5) * 2, ny = -(y / H - .5) * 2 * (H / W);
+    const dome = Math.sqrt(Math.max(0, 1 - nx * nx * .75 - ny * ny * .6)) * .42;
+    for (let l = 0; l < 1; l++) {
+      const jx = (Math.random() - .5) * .012, jy = (Math.random() - .5) * .012;
+      tgt.push(nx + jx, ny + jy, dome * .8 + (edge ? 0 : -.04));
+      const th = Math.random() * Math.PI * 2, ph = Math.acos(2 * Math.random() - 1), rr = 2.5 + Math.random() * 2;
+      start.push(rr * Math.sin(ph) * Math.cos(th), rr * Math.sin(ph) * Math.sin(th), rr * Math.cos(ph));
+      rnd.push(Math.random());
+      side.push(x / W > .493 ? 1 : 0);
+    }
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(tgt, 3));
+  g.setAttribute('aStart', new THREE.Float32BufferAttribute(start, 3));
+  g.setAttribute('aRand', new THREE.Float32BufferAttribute(rnd, 1));
+  g.setAttribute('aSide', new THREE.Float32BufferAttribute(side, 1));
+  const uni = { uTime: { value: 0 }, uProg: { value: reduce ? 1 : 0 }, uSize: { value: 8 }, uPix: { value: renderer.getPixelRatio() }, uFade: { value: 1 },
+    cL: { value: new THREE.Color('#EAF0FF') }, cR: { value: new THREE.Color('#7AA8FF') } };
+  const mat = new THREE.ShaderMaterial({
+    uniforms: uni, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    vertexShader: `
+      attribute vec3 aStart; attribute float aRand; attribute float aSide;
+      uniform float uTime, uProg, uSize, uPix;
+      varying float vSide, vGlow, vA;
+      void main(){
+        float t = clamp((uProg - aRand*.35)/.65, 0., 1.); t = t*t*(3.-2.*t);
+        vec3 p = mix(aStart, position, t);
+        p += .004*vec3(sin(uTime*1.3+aRand*40.), cos(uTime*1.1+aRand*33.), sin(uTime*.9+aRand*21.));
+        vec4 mv = modelViewMatrix*vec4(p, 1.);
+        gl_Position = projectionMatrix*mv;
+        float scan = aSide > .5 ? smoothstep(.06, 0., abs(fract(uTime*.22 - position.y*.5) - .5)) : smoothstep(.1, 0., abs(fract(uTime*.12 + position.x*.4) - .5))*.5;
+        vGlow = .5 + .3*sin(uTime*2.+aRand*60.) + scan*1.4;
+        vSide = aSide; vA = t;
+        gl_PointSize = uSize*uPix*(.7 + aRand*.7)/ -mv.z * (1. + scan*.8);
+      }`,
+    fragmentShader: `
+      uniform vec3 cL, cR; uniform float uFade; varying float vSide, vGlow, vA;
+      void main(){
+        float d = length(gl_PointCoord - .5); if (d > .5) discard;
+        float a = smoothstep(.5, .0, d);
+        gl_FragColor = vec4(mix(cL, cR, vSide), a*min(vGlow, 1.6)*(.5 + .9*vA)*uFade);
+      }`
+  });
+  const brain = new THREE.Points(g, mat);
+  const grp = new THREE.Group(); grp.add(brain); sceneG.add(grp);
+
+  // anneaux orbitaux
+  const ringMat = new THREE.LineBasicMaterial({ color: 0x5B92FF, transparent: true, opacity: .22 });
+  const rings = [];
+  [[1.55, .4], [1.85, -.7], [2.2, 1.2]].forEach(([r, tilt], i) => {
+    const pts = []; for (let k = 0; k <= 160; k++) { const a = k / 160 * Math.PI * 2; pts.push(new THREE.Vector3(Math.cos(a) * r, Math.sin(a) * r * .32, 0)); }
+    const l = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), ringMat);
+    l.rotation.z = tilt; l.rotation.x = .3 * i; grp.add(l); rings.push(l);
+  });
+  // poussière
+  const dust = []; for (let k = 0; k < 900; k++) dust.push((Math.random() - .5) * 14, (Math.random() - .5) * 8, -Math.random() * 8);
+  const dg = new THREE.BufferGeometry(); dg.setAttribute('position', new THREE.Float32BufferAttribute(dust, 3));
+  const dustP = new THREE.Points(dg, new THREE.PointsMaterial({ color: 0x8FB2FF, size: .018, transparent: true, opacity: .55 }));
+  sceneG.add(dustP);
+
+  const hero = document.querySelector('.hero');
+  function size(){
+    const w = hero.clientWidth, h = hero.clientHeight; if (!w || !h) return;
+    renderer.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix();
+    const wide = w > 860;
+    grp.position.set(wide ? 1.2 : 0, wide ? .02 : .35, 0);
+    grp.scale.setScalar(wide ? .98 : .7); uni.uFade.value = wide ? 1 : .5;
+    mat.opacity = 1; uni.uSize.value = wide ? 8 : 6.5;
+  }
+  size(); addEventListener('resize', size);
+
+  let mx = 0, my = 0, tx = 0, ty = 0;
+  hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(); mx = (e.clientX - r.left) / r.width - .5; my = (e.clientY - r.top) / r.height - .5; });
+
+  let running = !reduce, visible = true, last = performance.now(), t = 0; const t0 = performance.now();
+  const btn = document.getElementById('pause');
+  btn.addEventListener('click', () => {
+    running = !running; btn.setAttribute('aria-pressed', String(!running));
+    btn.setAttribute('aria-label', running ? 'Mettre l’animation en pause' : 'Relancer l’animation');
+    btn.innerHTML = running ? '<svg viewBox="0 0 16 16"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg>' : '<svg viewBox="0 0 16 16"><path d="M4 2.5v11l9-5.5z"/></svg>';
+    last = performance.now(); if (running) requestAnimationFrame(loop);
+  });
+  if (reduce) btn.click();
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible && running) { last = performance.now(); requestAnimationFrame(loop); } }).observe(hero);
+
+  function frame(dt){
+    t += dt; uni.uTime.value = t;
+    if (uni.uProg.value < 1) uni.uProg.value = Math.min(1, (performance.now() - t0) / 2800);
+    tx += (mx - tx) * .05; ty += (my - ty) * .05;
+    grp.rotation.y = Math.sin(t * .22) * .22 + tx * .5;
+    grp.rotation.x = ty * .25;
+    rings.forEach((r, i) => { r.rotation.y = t * (.12 + i * .05) * (i % 2 ? -1 : 1); });
+    dustP.rotation.y = t * .01;
+    renderer.render(sceneG, cam);
+  }
+  function loop(now){
+    if (!running || !visible) return;
+    const dt = Math.min(.05, (now - last) / 1000); last = now;
+    frame(dt); requestAnimationFrame(loop);
+  }
+  frame(0);
+  if (running) requestAnimationFrame(loop);
+})();
+</script>
+
+</body>
+</html>
