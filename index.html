@@ -22,6 +22,7 @@
 :root[data-theme="dark"]{ --bg:#020B1E; --surface:#061A3D; --fg:#EAF0FA; --muted:#9DAACA; --line:#14305F; --soft:#0A2250; color-scheme:dark }
 
 *{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; text-size-adjust:100%}
 body{background:var(--bg); color:var(--fg); font-family:var(--body); font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased}
 body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:60; background:var(--abysse)}
 a{color:inherit}
@@ -138,7 +139,20 @@ section.band{padding-block:clamp(72px, 9vw, 128px)}
 .bars i{flex:1; border-radius:6px 6px 0 0; background:var(--signal); opacity:.9}
 .chip3d{right:-1%; bottom:8%; padding:12px 18px; border-radius:999px; background:var(--signal); font-family:var(--display); font-weight:600; font-size:14px; transform:translateZ(300px); animation:float 5s ease-in-out -1s infinite; white-space:nowrap}
 @keyframes float{0%,100%{translate:0 0} 50%{translate:0 -14px}}
-@media (max-width:640px){ .phone{min-width:0; width:34%} .dash{min-width:0; width:52%} .chip3d{display:none} }
+@media (max-width:640px){
+  .stage{height:560px; margin-top:48px; perspective:1200px}
+  .scene{transform:rotateX(var(--rx,6deg)) rotateY(var(--ry,-8deg))}
+  .browser{left:0; top:4%; width:86%; height:48%}
+  .browser .hero-mock{margin:12px; height:52%; padding:12px; font-size:15px}
+  .browser .row{margin:0 12px} .browser .row div{height:40px}
+  .phone{min-width:0; width:58%; right:0; top:22%; height:76%; border-radius:28px; padding:12px 8px; gap:7px}
+  .phone .top{font-size:12px; padding:2px 4px 8px}
+  .bub{font-size:11.5px; padding:7px 10px; max-width:92%}
+  .dash{min-width:0; width:50%; left:4%; bottom:6%; padding:12px; border-radius:14px; transform:translateZ(70px)}
+  .phone{transform:translateZ(40px)}
+  .dash .v{font-size:17px} .dash .k{font-size:10.5px} .bars{height:44px; gap:5px}
+  .chip3d{display:none}
+}
 
 /* méthode */
 .steps{display:grid; grid-template-columns:repeat(5, minmax(0,1fr)); gap:16px; counter-reset:s}
