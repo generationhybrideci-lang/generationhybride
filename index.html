@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Génération Hybride, agence Technologie · Informatique · Communication à Abidjan.">
+<meta name="description" content="Génération Hybride, startup ivoirienne : solutions technologiques aux défis du quotidien. Technologie · Informatique · Communication à Abidjan.">
 <title>Génération Hybride</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,14 +41,14 @@ h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0}
 .nav .wrap{display:flex; align-items:center; gap:28px; height:84px}
 .brand{display:flex; align-items:center; gap:12px; text-decoration:none; color:#fff; font-family:var(--display); font-weight:600; font-size:17px; letter-spacing:.06em}
 .brand svg{width:34px; height:35px; fill:#fff}
-.nav-links{display:flex; gap:28px; margin-left:36px}
+.nav-links{display:flex; gap:24px; margin-left:32px}
 .nav-links a{color:#fff; text-decoration:none; font-family:var(--display); font-weight:500; font-size:15px; opacity:.9}
 .nav-links a:hover{opacity:1}
 .nav .spacer{flex:1}
 .nav .pill{padding:11px 20px; font-size:14px}
 .menu{display:none; width:44px; height:44px; border-radius:50%; border:1px solid var(--glass-line); background:var(--glass); color:#fff; cursor:pointer; place-items:center; backdrop-filter:blur(10px)}
 .menu svg{width:18px; height:18px; stroke:currentColor; stroke-width:2; fill:none; stroke-linecap:round}
-@media (max-width: 860px){
+@media (max-width: 1080px){
   .nav-links{display:none}
   .menu{display:grid}
   .nav .pill{display:none}
@@ -185,6 +185,7 @@ select option{color:#0A1630}
 .wa-out{display:none; background:rgba(58,120,242,.18); border:1px solid rgba(58,120,242,.5); border-radius:14px; padding:14px; font-size:14px}
 .wa-out.on{display:block}
 .wa-out a{color:#fff; font-weight:600}
+.wa-out a.pill-wa{color:var(--nuit)}
 
 footer{background:var(--abysse); color:#8FA0C2; font-size:14px}
 footer .wrap{display:flex; flex-wrap:wrap; gap:16px 32px; justify-content:space-between; align-items:center; padding-block:34px}
@@ -201,8 +202,9 @@ footer .brand{font-size:15px}
 .page-head .eyebrow{color:#8FB2FF}
 section.page-contact{padding-top:calc(150px + env(safe-area-inset-top,0px)); min-height:100vh}
 .cta-band{padding-top:clamp(72px, 9vw, 128px)}
-.cta-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
-@media (max-width:900px){ .cta-grid{grid-template-columns:1fr} }
+.cta-grid{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px}
+@media (max-width:1100px){ .cta-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:600px){ .cta-grid{grid-template-columns:1fr} }
 .cta-card{position:relative; display:flex; flex-direction:column; gap:12px; padding:32px; border-radius:24px; background:var(--surface); border:1px solid var(--line); text-decoration:none; min-height:220px; transition:transform .2s, box-shadow .2s}
 .cta-card:hover{transform:translateY(-4px); box-shadow:0 30px 60px -30px rgba(6,37,92,.45)}
 .cta-card h3{font-weight:600; font-size:28px; letter-spacing:-.02em}
@@ -253,6 +255,84 @@ fieldset.via legend{font-size:14px; color:#C9D6EE; margin-bottom:8px; padding:0}
 .contact .geo, .action .geo, .page-head .geo{position:absolute; inset:0; width:100%; height:100%; z-index:-1; display:block}
 .contact::after{content:""; position:absolute; inset:0; z-index:-1; pointer-events:none; background:radial-gradient(60% 50% at 20% 85%, rgba(58,120,242,.22), transparent 70%), radial-gradient(50% 45% at 90% 10%, rgba(58,120,242,.18), transparent 70%)}
 
+
+/* projets */
+.bim{background:radial-gradient(70% 60% at 85% 10%, rgba(232,32,72,.28), transparent 70%), linear-gradient(160deg, #0A0D18, #04060C); color:#fff}
+.bim-top{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:24px 48px; margin-bottom:40px}
+.bim-eye{color:#FF5C7A}
+.bim-logo{font-family:var(--display); font-weight:700; font-size:clamp(64px, 10vw, 140px); line-height:.9; letter-spacing:-.05em; margin-top:10px}
+.bim-tag{margin:10px 0 0; font-family:var(--display); font-weight:500; letter-spacing:.32em; text-transform:uppercase; font-size:13px; color:#C9D0E0}
+.bim-lead{max-width:460px; margin:0; font-size:clamp(17px,1.6vw,20px); color:#D7DCE8}
+.bim-lead strong{color:#FFD24A}
+.video-frame{border-radius:24px; overflow:hidden; border:1px solid rgba(255,255,255,.12); box-shadow:0 50px 100px -40px rgba(232,32,72,.45); background:#000; aspect-ratio:16/9}
+.video-frame video{width:100%; height:100%; display:block; object-fit:cover}
+.bim-grid{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; margin-top:40px}
+@media (max-width:1000px){ .bim-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:560px){ .bim-grid{grid-template-columns:1fr} }
+.bim-grid article{background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:20px; padding:24px; backdrop-filter:blur(8px)}
+.bim-grid .n{font-family:var(--display); font-weight:600; color:#FF5C7A; font-size:15px}
+.bim-grid h3{font-weight:600; font-size:19px; margin:10px 0 8px}
+.bim-grid p{margin:0; color:#B9C0D0; font-size:15px}
+.bim-model{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:16px}
+.bim-model div{border-radius:20px; padding:22px 24px; background:rgba(232,32,72,.12); border:1px solid rgba(232,32,72,.35); display:flex; flex-direction:column; gap:2px}
+.bim-model .k{font-size:13px; color:#C9D0E0}
+.bim-model strong{font-family:var(--display); font-weight:600; font-size:clamp(26px,3vw,34px); letter-spacing:-.02em; font-variant-numeric:tabular-nums}
+.bim-model p{grid-column:1/-1; margin:4px 0 0; color:#9AA3B6; font-size:14px}
+@media (max-width:640px){ .bim-model{grid-template-columns:1fr} }
+.partner-cta{margin-top:40px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:20px 32px; padding:32px; border-radius:24px; background:linear-gradient(120deg, #E82048, #B0123A)}
+.partner-cta h3{font-weight:600; font-size:clamp(24px,2.6vw,32px); letter-spacing:-.02em}
+.partner-cta p{margin:8px 0 0; color:#FFE3E9; max-width:560px}
+.pill.big{padding:18px 32px; font-size:17px}
+.partner-cta .pill-blue{background:#fff; color:#B0123A}
+.soon{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px}
+@media (max-width:800px){ .soon{grid-template-columns:1fr} }
+.soon article{border-radius:24px; padding:32px; background:var(--surface); border:1px solid var(--line); display:flex; flex-direction:column; gap:12px; align-items:flex-start}
+.soon .idea{background:var(--soft)}
+.soon h3{font-weight:600; font-size:26px; letter-spacing:-.02em}
+.soon p{margin:0; color:var(--muted)}
+.badge{font-family:var(--display); font-size:12px; letter-spacing:.14em; text-transform:uppercase; padding:6px 12px; border-radius:999px; background:var(--soft); color:var(--signal)}
+.soon .idea .badge{background:var(--surface)}
+/* à propos */
+.how{display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.4fr); gap:48px; align-items:start}
+@media (max-width:900px){ .how{grid-template-columns:1fr} }
+.how-intro h2{font-weight:600; font-size:clamp(34px,4.4vw,60px); line-height:1; letter-spacing:-.035em; margin:14px 0 18px}
+.how-intro p{color:var(--muted); margin:0; font-size:17px}
+.how-steps{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px}
+@media (max-width:560px){ .how-steps{grid-template-columns:1fr} }
+.how-steps li{background:var(--surface); border:1px solid var(--line); border-radius:22px; padding:26px}
+.how-steps span{font-family:var(--display); font-weight:600; font-size:36px; color:var(--signal); letter-spacing:-.04em}
+.how-steps h3{font-weight:600; font-size:20px; margin:6px 0 6px}
+.how-steps p{margin:0; color:var(--muted); font-size:15px}
+.vision-band{background:linear-gradient(140deg, var(--nuit), var(--abysse)); color:#fff}
+.vm{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px}
+@media (max-width:860px){ .vm{grid-template-columns:1fr} }
+.vm article{border-radius:28px; padding:40px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); backdrop-filter:blur(10px)}
+.vm .eyebrow{color:#8FB2FF}
+.vm h2{font-weight:600; font-size:clamp(26px,3vw,40px); line-height:1.08; letter-spacing:-.03em; margin:14px 0 16px}
+.vm p{margin:0; color:#C9D6EE}
+.goals{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px}
+@media (max-width:960px){ .goals{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:520px){ .goals{grid-template-columns:1fr} }
+.goals div{border-top:2px solid var(--fg); padding-top:20px}
+.goals .n{font-family:var(--display); font-weight:600; font-size:40px; color:var(--signal); letter-spacing:-.04em}
+.goals h3{font-weight:600; font-size:20px; margin:8px 0}
+.goals p{margin:0; color:var(--muted); font-size:15px}
+.values{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:16px}
+@media (max-width:1000px){ .values{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:520px){ .values{grid-template-columns:1fr} }
+.values div{background:var(--soft); border-radius:20px; padding:26px}
+.values h3{font-weight:600; font-size:20px; margin-bottom:8px}
+.values p{margin:0; color:var(--muted); font-size:15px}
+.founder{display:grid; grid-template-columns:auto minmax(0,1fr); gap:40px; align-items:center; padding:40px; border-radius:28px; background:var(--surface); border:1px solid var(--line)}
+@media (max-width:700px){ .founder{grid-template-columns:1fr; padding:28px} }
+.founder .mono{width:140px; height:140px; border-radius:50%; display:grid; place-items:center; background:linear-gradient(140deg, var(--signal), var(--nuit)); color:#fff; font-family:var(--display); font-weight:600; font-size:44px; letter-spacing:-.02em}
+.founder h2{font-weight:600; font-size:clamp(28px,3.4vw,44px); letter-spacing:-.03em; margin:12px 0 14px}
+.founder p{margin:0 0 22px; color:var(--muted); max-width:680px; font-size:17px}
+.founder strong{color:var(--fg)}
+.founder .actions{display:flex; flex-wrap:wrap; gap:12px}
+.bim, .vision-band{position:relative; overflow:hidden; isolation:isolate}
+.bim .geo, .vision-band .geo{position:absolute; inset:0; width:100%; height:100%; z-index:-1; display:block}
+
 @media (prefers-reduced-motion: reduce){ .ticker .track, .phone, .dash, .chip3d{animation:none} .pill, .pole, .svc{transition:none} }
 </style>
 </head>
@@ -267,7 +347,7 @@ fieldset.via legend{font-size:14px; color:#C9D6EE; margin-bottom:8px; padding:0}
   <div class="wrap">
     <a class="brand" href="#/" aria-label="Génération Hybride, accueil"><svg aria-hidden="true"><use href="#gh"/></svg>GÉNÉRATION HYBRIDE</a>
     <nav class="nav-links" aria-label="Sections">
-      <a href="#/" data-route="accueil">Accueil</a><a href="#/services" data-route="services">Services</a><a href="#/methode" data-route="methode">Méthode &amp; packs</a><a href="#/contact" data-route="contact">Contact</a>
+      <a href="#/" data-route="accueil">Accueil</a><a href="#/services" data-route="services">Services</a><a href="#/methode" data-route="methode">Méthode &amp; packs</a><a href="#/projets" data-route="projets">Projets</a><a href="#/apropos" data-route="apropos">À propos</a><a href="#/contact" data-route="contact">Contact</a>
     </nav>
     <span class="spacer"></span>
     <a class="pill pill-glass" href="https://wa.me/2250769814465" target="_blank" rel="noopener">WhatsApp</a>
@@ -361,7 +441,8 @@ fieldset.via legend{font-size:14px; color:#C9D6EE; margin-bottom:8px; padding:0}
   <section class="band cta-band">
     <div class="wrap cta-grid">
       <a class="cta-card" href="#/services"><span class="eyebrow">Page</span><h3>Nos services</h3><p>Logiciels, sites web, cybersécurité, identité visuelle, réseaux sociaux…</p><span class="arrow">→</span></a>
-      <a class="cta-card" href="#/methode"><span class="eyebrow">Page</span><h3>Méthode &amp; packs</h3><p>Comment nous travaillons et les packs pour démarrer.</p><span class="arrow">→</span></a>
+      <a class="cta-card" href="#/projets"><span class="eyebrow">Page</span><h3>Nos projets</h3><p>Bim et nos solutions aux défis du quotidien. Devenez partenaire.</p><span class="arrow">→</span></a>
+      <a class="cta-card" href="#/apropos"><span class="eyebrow">Page</span><h3>À propos</h3><p>Notre vision, nos objectifs et nos valeurs.</p><span class="arrow">→</span></a>
       <a class="cta-card dark" href="#/contact"><span class="eyebrow">Page</span><h3>Contact</h3><p>Le premier échange est gratuit et sans engagement.</p><span class="arrow">→</span></a>
     </div>
   </section>
@@ -426,6 +507,121 @@ fieldset.via legend{font-size:14px; color:#C9D6EE; margin-bottom:8px; padding:0}
   </section>
   <section class="band" style="padding-top:0"><div class="wrap next"><p>Un pack vous intéresse ?</p><a class="pill pill-blue" href="#/contact">Parlons-en</a><a class="pill pill-line" href="#/services">Tous nos services</a></div></section>
 </div>
+<div class="view" data-view="projets" data-title="Nos projets · Génération Hybride" hidden>
+  <header class="page-head"><canvas class="geo" aria-hidden="true"></canvas><div class="wrap"><span class="eyebrow">Projets</span><h1>Des solutions nées des défis du quotidien.</h1><p>Chaque projet part d’un vrai problème vécu par les Ivoiriens et les Africains. Voici ce que nous construisons, et comment vous pouvez y participer.</p></div></header>
+
+  <section class="band bim" id="bim">
+    <canvas class="geo" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div class="bim-top">
+        <div>
+          <span class="eyebrow bim-eye">Projet phare</span>
+          <h2 class="bim-logo">Bim</h2>
+          <p class="bim-tag">Beauté · Image · Motivation</p>
+        </div>
+        <p class="bim-lead">Une application où chacun partage sa transformation, se fixe des objectifs et vend en ligne, dans un écosystème où <strong>tout le monde gagne</strong>.</p>
+      </div>
+      <div class="video-frame">
+        <video id="bim-video" controls playsinline preload="metadata" poster="assets/bim-poster.jpg">
+          <source src="assets/bim.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="bim-grid">
+        <article><span class="n">01</span><h3>Partager sa transformation</h3><p>Photos, routines, progrès : on avance et on le montre, avec une communauté qui tire vers le haut.</p></article>
+        <article><span class="n">02</span><h3>Se fixer un objectif</h3><p>Bim guide l’utilisateur jour après jour vers un objectif concret, comme une peau éclatante ou un nouveau look.</p></article>
+        <article><span class="n">03</span><h3>BimShop pour les marchands</h3><p>Boutique, commandes, équipe et livreurs au même endroit, sur une plateforme pensée pour eux.</p></article>
+        <article><span class="n">04</span><h3>Créateurs et livreurs gagnent</h3><p>Le contenu a de la valeur et chaque livraison rapporte : dans Bim, l’argent circule.</p></article>
+      </div>
+      <div class="bim-model">
+        <div><span class="k">Utilisateur Premium</span><strong>2 000 F</strong><span class="k">par mois</span></div>
+        <div><span class="k">Marchand</span><strong>5 000 F</strong><span class="k">par mois</span></div>
+        <div><span class="k">Livreur</span><strong>1 000 F</strong><span class="k">par mois</span></div>
+        <p>Abonnements prévus, auxquels s’ajoutent la mise en avant d’articles et de boutiques et les lives sponsorisés. Les projections de revenus par palier sont présentées dans la vidéo.</p>
+      </div>
+      <div class="partner-cta">
+        <div>
+          <h3>Bim cherche ses partenaires financiers.</h3>
+          <p>Investisseurs, sponsors, institutions : aidez-nous à lancer Bim en Côte d’Ivoire, puis en Afrique de l’Ouest.</p>
+        </div>
+        <button class="pill pill-blue big" type="button" data-partner="Bim">Devenir partenaire</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="head"><h2>Prochainement</h2><p>D’autres solutions sont en préparation.</p></div>
+      <div class="soon">
+        <article><span class="badge">En préparation</span><h3>Sentinelle</h3><p>Présentation à venir.</p></article>
+        <article class="idea"><span class="badge">Votre problème</span><h3>Et si le prochain projet venait de vous ?</h3><p>Vous vivez un problème au quotidien ? Parlez-nous-en : c’est peut-être notre prochaine solution.</p><a class="pill pill-line" href="#/contact">Nous soumettre un problème</a></article>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="view" data-view="apropos" data-title="À propos · Génération Hybride" hidden>
+  <header class="page-head"><canvas class="geo" aria-hidden="true"></canvas><div class="wrap"><span class="eyebrow">À propos</span><h1>Nous achetons vos problèmes.</h1><p>Génération Hybride est une startup ivoirienne qui lutte pour le développement technologique de la Côte d’Ivoire. Nous créons des solutions technologiques aux défis quotidiens des Ivoiriens, et des Africains.</p></div></header>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="how">
+        <div class="how-intro"><span class="eyebrow">Notre approche</span><h2>Un problème, une solution.</h2><p>Nous « achetons » les problèmes, les limites et les besoins du quotidien, puis nous les transformons en solutions technologiques utiles.</p></div>
+        <ol class="how-steps">
+          <li><span>01</span><h3>Le problème</h3><p>Un besoin réel, vécu chaque jour par des Ivoiriens.</p></li>
+          <li><span>02</span><h3>La compréhension</h3><p>Écouter, observer, mesurer ce qui bloque vraiment.</p></li>
+          <li><span>03</span><h3>La solution</h3><p>Une application, un outil, un service, conçu pour ici.</p></li>
+          <li><span>04</span><h3>L’impact</h3><p>Des usages concrets, des revenus, du temps gagné.</p></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="band vision-band">
+    <canvas class="geo" aria-hidden="true"></canvas>
+    <div class="wrap vm">
+      <article><span class="eyebrow">Vision</span><h2>Une Afrique qui crée ses propres solutions technologiques.</h2><p>Nous voulons que les réponses aux défis africains soient imaginées et construites en Afrique, par une génération qui unit créativité humaine et intelligence artificielle.</p></article>
+      <article><span class="eyebrow">Mission</span><h2>Transformer les défis du quotidien en solutions utiles.</h2><p>Partir des vrais besoins des Ivoiriens, concevoir des outils simples et accessibles, et les mettre entre les mains de ceux qui en ont besoin.</p></article>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="head"><h2>Nos objectifs</h2><p>Ce vers quoi nous avançons.</p></div>
+      <div class="goals">
+        <div><span class="n">01</span><h3>Résoudre de vrais problèmes</h3><p>Identifier les besoins concrets des Ivoiriens et y répondre par la technologie.</p></div>
+        <div><span class="n">02</span><h3>Accélérer le numérique ivoirien</h3><p>Contribuer au développement technologique de la Côte d’Ivoire.</p></div>
+        <div><span class="n">03</span><h3>Grandir en Afrique</h3><p>Étendre nos solutions à l’Afrique de l’Ouest, puis au continent.</p></div>
+        <div><span class="n">04</span><h3>Fédérer des partenaires</h3><p>Réunir investisseurs, institutions et talents autour de projets à fort impact.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" style="padding-top:0">
+    <div class="wrap">
+      <div class="head"><h2>Nos valeurs</h2><p>Ce qui guide chacune de nos décisions.</p></div>
+      <div class="values">
+        <div><h3>Utilité</h3><p>Chaque solution doit régler un vrai problème.</p></div>
+        <div><h3>Créativité hybride</h3><p>Le meilleur de l’humain, augmenté par l’intelligence artificielle.</p></div>
+        <div><h3>Ancrage africain</h3><p>Pensé ici, pour ici, avec les gens d’ici.</p></div>
+        <div><h3>Audace</h3><p>Oser construire ce qui n’existe pas encore.</p></div>
+        <div><h3>Transparence</h3><p>Des engagements clairs avec nos clients et nos partenaires.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" style="padding-top:0">
+    <div class="wrap">
+      <div class="founder">
+        <div class="mono" aria-hidden="true">YD</div>
+        <div>
+          <span class="eyebrow">Notre histoire</span>
+          <h2>Initiée en octobre 2026.</h2>
+          <p>Génération Hybride a été lancée en octobre 2026 par <strong>DOHO Yannick</strong>, étudiant en communication, avec une conviction : la jeunesse ivoirienne peut créer les solutions technologiques dont son pays a besoin, en combinant créativité humaine et intelligence artificielle.</p>
+          <div class="actions"><a class="pill pill-blue" href="#/projets">Découvrir nos projets</a><button class="pill pill-line" type="button" data-partner="Génération Hybride">Devenir partenaire</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 <div class="view" data-view="contact" data-title="Contact · Génération Hybride" hidden>
 
   <section class="band contact page-contact" id="contact">
@@ -486,6 +682,32 @@ fieldset.via legend{font-size:14px; color:#C9D6EE; margin-bottom:8px; padding:0}
       </form>
 </dialog>
 
+<dialog class="sheet" id="psheet" aria-labelledby="psheet-title">
+  <button class="sheet-x" type="button" data-close aria-label="Fermer">×</button>
+  <span class="eyebrow">Partenariat</span>
+  <h2 id="psheet-title">Devenir partenaire</h2>
+  <p class="sheet-sub">Laissez-nous vos coordonnées : nous revenons vers vous avec le dossier du projet.</p>
+  <form class="req" id="fp" novalidate data-kind="partner" data-project="Bim">
+    <label for="p-nom">Votre nom<input id="p-nom" name="nom" autocomplete="name" required></label>
+    <label for="p-org">Structure (facultatif)<input id="p-org" name="org" autocomplete="organization" placeholder="Entreprise, fonds, institution…"></label>
+    <label for="p-type">Type de partenariat
+      <select id="p-type" name="service">
+        <option>Investisseur</option><option>Sponsor</option><option>Institution / subvention</option><option>Partenaire technique</option><option>Autre</option>
+      </select></label>
+    <label for="p-msg">Votre message<textarea id="p-msg" name="besoin" placeholder="Votre intérêt pour le projet, vos questions…" required></textarea></label>
+    <fieldset class="via"><legend>Comment vous recontacter ?</legend>
+      <label class="chip"><input type="radio" name="via3" value="whatsapp" checked> WhatsApp</label>
+      <label class="chip"><input type="radio" name="via3" value="email"> E-mail</label>
+    </fieldset>
+    <label for="p-contact"><span class="via-label">Votre numéro WhatsApp</span><input id="p-contact" name="contact" inputmode="tel" autocomplete="tel" placeholder="+225 07 00 00 00 00" required></label>
+    <div class="req-actions">
+      <button class="pill pill-blue" type="submit">Envoyer ma demande</button>
+      <a class="pill pill-wa" href="https://wa.me/2250769814465" target="_blank" rel="noopener">Nous écrire sur WhatsApp</a>
+    </div>
+    <div class="wa-out" role="status"></div>
+  </form>
+</dialog>
+
 <a class="wa-float" href="https://wa.me/2250769814465" target="_blank" rel="noopener" aria-label="Nous écrire sur WhatsApp">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.4 9.4 0 0 0-8.1 14.2L2.6 21.5l4.9-1.3A9.4 9.4 0 1 0 12 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.6 7.6c.2-.4.5-.4.8-.4h.5c.2 0 .4 0 .6.5l.7 1.7c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.5.9 1.6 2 2.6 2.5.2.1.4.1.5 0l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.4 0 .4-.1 1.1-.6 1.5-.5.4-1.4.7-2.4.4-1.3-.4-2.7-1.2-3.9-2.4-1.1-1.1-1.9-2.5-2.1-3.5-.2-1 .2-1.8.6-2.3z" fill="currentColor"/></svg>
   <span>Nous écrire sur WhatsApp</span>
@@ -494,7 +716,7 @@ fieldset.via legend{font-size:14px; color:#C9D6EE; margin-bottom:8px; padding:0}
 <footer>
   <div class="wrap">
     <a class="brand" href="#/"><svg aria-hidden="true"><use href="#gh"/></svg>GÉNÉRATION HYBRIDE</a>
-    <nav class="foot-links" aria-label="Pages"><a href="#/">Accueil</a><a href="#/services">Services</a><a href="#/methode">Méthode &amp; packs</a><a href="#/contact">Contact</a></nav>
+    <nav class="foot-links" aria-label="Pages"><a href="#/">Accueil</a><a href="#/services">Services</a><a href="#/methode">Méthode &amp; packs</a><a href="#/projets">Projets</a><a href="#/apropos">À propos</a><a href="#/contact">Contact</a></nav>
     <span>© 2026 Génération Hybride · Abidjan</span>
   </div>
 </footer>
@@ -581,7 +803,10 @@ fieldset.via legend{font-size:14px; color:#C9D6EE; margin-bottom:8px; padding:0}
         bad.forEach(([el]) => el.classList.add('err')); bad[0][0].focus();
         out.textContent = 'Il manque : ' + bad.map(b => b[1]).join(', ') + '.'; out.classList.add('on'); return;
       }
-      const txt = `Bonjour Génération Hybride,\nJe suis ${nom}.\nService : ${svc}\nCe que je veux : ${besoin}\nMe recontacter par ${via === 'email' ? 'e-mail' : 'WhatsApp'} : ${c}`;
+      const org = q('org') ? q('org').value.trim() : '';
+      const txt = form.dataset.kind === 'partner'
+        ? `Bonjour Génération Hybride,\nJe suis ${nom}${org ? ' (' + org + ')' : ''}.\nJe souhaite devenir partenaire du projet ${form.dataset.project}.\nType : ${svc}\nMessage : ${besoin}\nMe recontacter par ${via === 'email' ? 'e-mail' : 'WhatsApp'} : ${c}`
+        : `Bonjour Génération Hybride,\nJe suis ${nom}.\nService : ${svc}\nCe que je veux : ${besoin}\nMe recontacter par ${via === 'email' ? 'e-mail' : 'WhatsApp'} : ${c}`;
       if (FORM_ENDPOINT) { try { fetch(FORM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ nom, service: svc, besoin, recontacter_par: via, contact: c }) }); } catch (err) {} }
       const t = document.createElement('p'); t.className = 'done'; t.textContent = 'Votre demande est prête.';
       const p = document.createElement('p'); p.style.margin = '0 0 10px';
@@ -590,7 +815,19 @@ fieldset.via legend{font-size:14px; color:#C9D6EE; margin-bottom:8px; padding:0}
       out.append(t, p, a); out.classList.add('on'); a.focus();
     });
   }
-  wireForm(document.getElementById('f')); wireForm(document.getElementById('f2'));
+  wireForm(document.getElementById('f')); wireForm(document.getElementById('f2')); wireForm(document.getElementById('fp'));
+  const psheet = document.getElementById('psheet'), fp = document.getElementById('fp');
+  document.querySelectorAll('[data-partner]').forEach(b => b.addEventListener('click', () => {
+    const proj = b.dataset.partner; fp.dataset.project = proj;
+    document.getElementById('psheet-title').textContent = proj === 'Bim' ? 'Devenir partenaire de Bim' : 'Devenir partenaire';
+    fp.querySelector('.wa-out').classList.remove('on'); fp.querySelector('.wa-out').innerHTML = '';
+    const v = document.getElementById('bim-video'); if (v && !v.paused) v.pause();
+    if (psheet.showModal) psheet.showModal(); else psheet.setAttribute('open', '');
+    setTimeout(() => document.getElementById('p-nom').focus(), 50);
+  }));
+  psheet.querySelector('[data-close]').addEventListener('click', () => psheet.close());
+  psheet.addEventListener('click', e => { if (e.target === psheet) psheet.close(); });
+  addEventListener('hashchange', () => { const v = document.getElementById('bim-video'); if (v) v.pause(); });
 
   const sheet = document.getElementById('sheet'), f2 = document.getElementById('f2');
   function openSheet(name){
